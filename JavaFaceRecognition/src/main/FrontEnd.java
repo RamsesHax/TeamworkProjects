@@ -1,6 +1,7 @@
 package main;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,26 +15,51 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.border.Border;
 
-public class FrontEnd extends JFrame implements ActionListener {
+import org.bytedeco.javacpp.BytePointer;
+import org.bytedeco.opencv.opencv_core.Mat;
+import org.bytedeco.opencv.opencv_core.RectVector;
+import org.bytedeco.opencv.opencv_objdetect.CascadeClassifier;
+import org.bytedeco.opencv.opencv_videoio.VideoCapture;
 
+public class FrontEnd extends JFrame implements ActionListener {
+	
+	ImageIcon image;
+	JButton button;
+	JMenuBar menuBar;
+	
+	private FrontEnd.DaemonThread myDaemon = null;
+	
+	//JavaCV
+	VideoCapture webSource = null;
+	Mat cameraImage = new Mat();
+	CascadeClassifier cascade = new CascadeClassifier("");
+	BytePointer mem = new BytePointer();
+	RectVector detectedFaces = new RectVector();
+	
+	//variables
+	String root;
+	int numSamples = 25; int sample = 1;
+	
 	FrontEnd() {
 		
-	
-		JButton button = new JButton("Start");
+		button = new JButton("Start");
+		image = new ImageIcon("logo.jpg");
+		menuBar = new JMenuBar();
 		
 		this.setTitle("Face Recognition");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setResizable(true);
-		this.setSize(500,500);
-		this.setLayout(new FlowLayout());
-		this.add(button);
-
-		
-		ImageIcon image = new ImageIcon("logo.jpg");
+		this.setResizable(false);
+		this.setSize(500,550);
+		this.setLayout(null);
 		this.setIconImage(image.getImage()); // logo-ul aplicatiei
-		this.getContentPane().setBackground(Color.DARK_GRAY);		
+		this.getContentPane().setBackground(Color.LIGHT_GRAY);		
+		this.setJMenuBar(menuBar);
 		
-		JMenuBar menuBar = new JMenuBar();
+		button.setBounds(200,5,75,25);
+		button.setFocusable(false);
+		button.setBorder(BorderFactory.createBevelBorder(1));
+		button.setBackground(new Color(66, 245, 209));
+		button.setFont(new Font("MV Boli", Font.BOLD, 15));
 		
 		JMenu fileMenu = new JMenu("File");
 		JMenu editMenu = new JMenu("Edit");
@@ -51,10 +77,9 @@ public class FrontEnd extends JFrame implements ActionListener {
 		menuBar.add(editMenu);
 		menuBar.add(helpMenu);
 		
-		this.setJMenuBar(menuBar);
-		this.setVisible(true);
 		
-		button.setBounds(200, 400, 90, 50);
+		this.add(button);
+		this.setVisible(true);
 	}
 
 	@Override
