@@ -1,5 +1,7 @@
 package Database;
 
-public class RegisterPerson {
+import javax.swing.JFrame;
+
+public class RegisterPerson extends JFrame{
 
 }
