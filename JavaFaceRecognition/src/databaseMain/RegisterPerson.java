@@ -1,4 +1,4 @@
-package Database;
+package databaseMain;
 
 import java.awt.EventQueue;
 
@@ -151,7 +151,7 @@ public class RegisterPerson extends JFrame{
 		
 		JLabel repeatpwLabel = new JLabel("REPEAT PASSWORD");
 		repeatpwLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		repeatpwLabel.setBounds(364, 225, 117, 23);
+		repeatpwLabel.setBounds(364, 225, 160, 23);
 		frame.getContentPane().add(repeatpwLabel);
 		
 		JCheckBox termsAndConditions = new JCheckBox("I have read and agree / agreed with the terms and conditions");
