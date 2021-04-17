@@ -11,14 +11,19 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.InputStream;
 import java.awt.event.ActionEvent;
 import java.awt.Button;
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.FontFormatException;
+
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 
@@ -50,15 +55,17 @@ public class RegisterPerson extends JFrame{
 
 	/**
 	 * Create the application.
+	 * @throws IOException 
 	 */
-	public RegisterPerson() {
+	public RegisterPerson() throws IOException {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws IOException 
 	 */
-	private void initialize() {
+	private void initialize() throws IOException {
 		frame = new JFrame();
 		frame.setBackground(Color.WHITE);
 		frame.getContentPane().setBackground(Color.WHITE);
@@ -74,11 +81,13 @@ public class RegisterPerson extends JFrame{
 		JLabel imageLabel = new JLabel("");
 		imageLabel.setBounds(-52, 0, 443, 320);
 		leftPanel.add(imageLabel);
-		imageLabel.setIcon(new ImageIcon("C:\\Users\\Alex\\OneDrive\\Desktop\\leftBgd.jpg"));
+		image = new ImageIcon();
+		image.setImage(ImageIO.read(getClass().getResource("/img/leftBgd.jpg"))); 
+		imageLabel.setIcon(image);
 		
 		JLabel leftText = new JLabel("FACE RECOGNITION R&A");
 		leftText.setForeground(Color.WHITE);
-		leftText.setFont(new Font("Microsoft YaHei", Font.BOLD, 18));
+		leftText.setFont(loadFont("chinese.msyh.ttf", 16 ,Font.TYPE1_FONT));
 		leftText.setBounds(63, 323, 231, 64);
 		leftPanel.add(leftText);
 		
@@ -156,4 +165,30 @@ public class RegisterPerson extends JFrame{
 		frame.setResizable(false);
 		
 	}
+	
+	private static Font loadFont(String fontName, float size, int style) {
+
+        InputStream openStream = RegisterPerson.class
+                .getResourceAsStream("/fontRes/"
+                        + fontName);
+        try {
+            Font font = Font.createFont(Font.TRUETYPE_FONT, openStream);
+            Font finalFont = font.deriveFont((float) size).deriveFont(style);
+            System.out.println("Loading font " + fontName + " " + finalFont);
+            return finalFont;
+        } catch (FontFormatException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (openStream != null) {
+                try {
+                    openStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
 }
