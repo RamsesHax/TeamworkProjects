@@ -6,47 +6,47 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Rares/JAVA/JavaCV needed resources/ffmpeg.jar">
+	<classpathentry kind="lib" path="D:/FaceRecognitionResources/JavaCv_Libraries/ffmpeg.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Rares/JAVA/JavaCV needed resources/ffmpeg-platform.jar">
+	<classpathentry kind="lib" path="D:/FaceRecognitionResources/JavaCv_Libraries/ffmpeg-android-x86_64.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Rares/JAVA/JavaCV needed resources/ffmpeg-windows-x86_64.jar">
+	<classpathentry kind="lib" path="D:/FaceRecognitionResources/JavaCv_Libraries/ffmpeg-platform.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Rares/JAVA/JavaCV needed resources/javacpp.jar">
+	<classpathentry kind="lib" path="D:/FaceRecognitionResources/JavaCv_Libraries/javacpp.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Rares/JAVA/JavaCV needed resources/javacv.jar">
+	<classpathentry kind="lib" path="D:/FaceRecognitionResources/JavaCv_Libraries/javacv.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Rares/JAVA/JavaCV needed resources/javacv-platform.jar">
+	<classpathentry kind="lib" path="D:/FaceRecognitionResources/JavaCv_Libraries/javacv-platform.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Rares/JAVA/JavaCV needed resources/opencv.jar">
+	<classpathentry kind="lib" path="D:/FaceRecognitionResources/JavaCv_Libraries/opencv.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Rares/JAVA/JavaCV needed resources/opencv-platform.jar">
+	<classpathentry kind="lib" path="D:/FaceRecognitionResources/JavaCv_Libraries/opencv-platform.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Rares/JAVA/JavaCV needed resources/opencv-windows-x86_64.jar">
+	<classpathentry kind="lib" path="D:/FaceRecognitionResources/JavaCv_Libraries/opencv-windows-x86_64.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
