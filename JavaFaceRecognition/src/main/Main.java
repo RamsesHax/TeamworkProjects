@@ -3,7 +3,7 @@ package main;
 public class Main {
 
 	public static void main(String[] args) {
-			//new FrontEnd();
+			new MyFrame();
 			//System.out.println("Hello abc");
 	}
 

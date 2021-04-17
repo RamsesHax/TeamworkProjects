@@ -22,7 +22,7 @@ import org.bytedeco.opencv.opencv_core.RectVector;
 import org.bytedeco.opencv.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.opencv.opencv_videoio.VideoCapture;
 
-public class FrontEnd extends JFrame implements ActionListener {
+public class MyFrame extends JFrame implements ActionListener {
 	
 	ImageIcon image;
 	JButton button;
@@ -30,7 +30,7 @@ public class FrontEnd extends JFrame implements ActionListener {
 	
 
 	
-	FrontEnd() {
+	MyFrame() {
 		
 		button = new JButton("Start");
 		image = new ImageIcon("logo.jpg");
