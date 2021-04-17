@@ -1,4 +1,4 @@
-package Database;
+package databaseMain;
 
 import java.awt.EventQueue;
 
@@ -11,6 +11,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Button;
 import javax.swing.JTextField;
@@ -19,6 +22,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 
@@ -50,15 +54,17 @@ public class RegisterPerson extends JFrame{
 
 	/**
 	 * Create the application.
+	 * @throws IOException 
 	 */
-	public RegisterPerson() {
+	public RegisterPerson() throws IOException {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws IOException 
 	 */
-	private void initialize() {
+	private void initialize() throws IOException {
 		frame = new JFrame();
 		frame.setBackground(Color.WHITE);
 		frame.getContentPane().setBackground(Color.WHITE);
@@ -71,10 +77,11 @@ public class RegisterPerson extends JFrame{
 		leftPanel.setLayout(null);
 		
 		
-		JLabel imageLabel = new JLabel("");
+		BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource("img\\leftBgd.jpg"));
+		ImageIcon icon = new ImageIcon(image);
+		JLabel imageLabel = new JLabel(icon);
 		imageLabel.setBounds(-52, 0, 443, 320);
 		leftPanel.add(imageLabel);
-		imageLabel.setIcon(new ImageIcon("C:\\Users\\Alex\\OneDrive\\Desktop\\leftBgd.jpg"));
 		
 		JLabel leftText = new JLabel("FACE RECOGNITION R&A");
 		leftText.setForeground(Color.WHITE);

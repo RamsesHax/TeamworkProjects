@@ -1,4 +1,4 @@
-package main;
+package capture;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
