@@ -1,4 +1,4 @@
-package Database;
+package databaseMain;
 
 import java.awt.EventQueue;
 
@@ -32,8 +32,8 @@ public class RegisterPerson extends JFrame{
 	private JFrame frame;
 	private JTextField usernameField;
 	private JTextField mailField;
-	private JTextField passwordField;
-	private JTextField repeatPasswordField;
+	private JTextField birthField;
+	private JTextField cityField;
 	private ImageIcon image;
 	
 	/**
@@ -87,7 +87,7 @@ public class RegisterPerson extends JFrame{
 		
 		JLabel leftText = new JLabel("FACE RECOGNITION R&A");
 		leftText.setForeground(Color.WHITE);
-		leftText.setFont(loadFont("chinese.msyh.ttf", 16 ,Font.TYPE1_FONT));
+		leftText.setFont(loadFont("chinese.msyh.ttf", 16 ,Font.BOLD));
 		leftText.setBounds(63, 323, 231, 64);
 		leftPanel.add(leftText);
 		
@@ -95,7 +95,7 @@ public class RegisterPerson extends JFrame{
 		signUp.setForeground(SystemColor.textHighlightText);
 		signUp.setBackground(new Color(25, 130, 183));
 		signUp.setBounds(382, 344, 324, 35);
-		signUp.setFont(new Font("Arial", Font.BOLD, 12));
+		signUp.setFont(loadFont("arial.ttf", 12 ,Font.BOLD));
 		frame.getContentPane().add(signUp);
 		
 		usernameField = new JTextField();
@@ -108,7 +108,7 @@ public class RegisterPerson extends JFrame{
 		frame.getContentPane().add(separatorUsername);
 		
 		JLabel usernameLabel = new JLabel("USERNAME");
-		usernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		usernameLabel.setFont(loadFont("Tahoma.ttf", 13 ,Font.PLAIN));
 		usernameLabel.setBounds(364, 21, 76, 23);
 		frame.getContentPane().add(usernameLabel);
 		
@@ -122,40 +122,40 @@ public class RegisterPerson extends JFrame{
 		frame.getContentPane().add(separatorMail);
 		
 		JLabel mailLabel = new JLabel("EMAIL");
-		mailLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		mailLabel.setFont(loadFont("Tahoma.ttf", 13 ,Font.PLAIN));
 		mailLabel.setBounds(364, 89, 76, 23);
 		frame.getContentPane().add(mailLabel);
 		
-		passwordField = new JTextField();
-		passwordField.setColumns(10);
-		passwordField.setBounds(364, 179, 354, 35);
-		frame.getContentPane().add(passwordField);
+		birthField = new JTextField();
+		birthField.setColumns(10);
+		birthField.setBounds(364, 179, 354, 35);
+		frame.getContentPane().add(birthField);
 		
 		JSeparator separatorPassword = new JSeparator();
 		separatorPassword.setBounds(364, 213, 354, 2);
 		frame.getContentPane().add(separatorPassword);
 		
-		JLabel passwordLabel = new JLabel("PASSWORD");
-		passwordLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		passwordLabel.setBounds(364, 157, 76, 23);
-		frame.getContentPane().add(passwordLabel);
+		JLabel birthLabel = new JLabel("DATE OF BIRTH");
+		birthLabel.setFont(loadFont("Tahoma.ttf", 13 ,Font.PLAIN));
+		birthLabel.setBounds(364, 157, 150, 23);
+		frame.getContentPane().add(birthLabel);
 		
-		repeatPasswordField = new JTextField();
-		repeatPasswordField.setColumns(10);
-		repeatPasswordField.setBounds(364, 247, 354, 35);
-		frame.getContentPane().add(repeatPasswordField);
+		cityField = new JTextField();
+		cityField.setColumns(10);
+		cityField.setBounds(364, 247, 354, 35);
+		frame.getContentPane().add(cityField);
 		
 		JSeparator separatorRepeatpw = new JSeparator();
 		separatorRepeatpw.setBounds(364, 281, 354, 2);
 		frame.getContentPane().add(separatorRepeatpw);
 		
-		JLabel repeatpwLabel = new JLabel("REPEAT PASSWORD");
-		repeatpwLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		repeatpwLabel.setBounds(364, 225, 117, 23);
-		frame.getContentPane().add(repeatpwLabel);
+		JLabel cityLabel = new JLabel("ADDRESS");
+		cityLabel.setFont(loadFont("Tahoma.ttf", 13 ,Font.PLAIN));
+		cityLabel.setBounds(364, 225, 117, 23);
+		frame.getContentPane().add(cityLabel);
 		
 		JCheckBox termsAndConditions = new JCheckBox("I have read and agree / agreed with the terms and conditions");
-		termsAndConditions.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		termsAndConditions.setFont(loadFont("Tahoma.ttf", 11 ,Font.ITALIC));
 		termsAndConditions.setBackground(SystemColor.activeCaption);
 		termsAndConditions.setForeground(Color.WHITE);
 		termsAndConditions.setBounds(365, 300, 324, 23);
