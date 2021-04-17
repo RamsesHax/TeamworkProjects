@@ -28,53 +28,7 @@ public class FrontEnd extends JFrame implements ActionListener {
 	JButton button;
 	JMenuBar menuBar;
 	
-	/*private FrontEnd.DaemonThread myDaemon = null;
-	
-	//JavaCV
-	VideoCapture webSource = null;
-	Mat cameraImage = new Mat();
-	CascadeClassifier cascade = new CascadeClassifier("");
-	BytePointer mem = new BytePointer();
-	RectVector detectedFaces = new RectVector();
-	RectVector
-	//variables
-	String root;
-	int numSamples = 25; int sample = 1;
-	
-	  class DaemonThread implements Runnable{
-		protected volatile boolean runnable = false;
-		@Override
-		public void run() {
-			synchronized (this){
-				while(runnable) {
-					try {
-						if(webSource.grab()) {
-							webSource.retrieve(cameraImage);
-							Graphics g = label_photo.getGraphics();
-							Mat imageColor = new Mat();
-							imageColor = cameraImage;
-							
-							Mat imageGray = new Mat();
-							cvtColor(imageColor, imageGray, COLOR_BGRA2GRAY);
-							
-							RectVector detectedFaces = new RectVector();
-							cascade.detectMultiScale(imageColor, detectedFaces, 1.1, 1, 0, new Size(150, 150), new Size(500, 500));
-							
-							for (int i = 0; 1 < detectedFaces.size(); i++) {
-								Rect dadosFace = detectedFaces.get(0);
-								rectangle(imageColor, dadosFace, new Scalar(255, 255, 255, 5))
-								Mat face = new Mat(imageGray, dadosFace);
-								opencv_imgproc.resize(face,  face, new Size(160, 160));
-								
-							}
-						}
-					}
-				}
-			}
-			
-		}
-		
-	}*/
+
 	
 	FrontEnd() {
 		
