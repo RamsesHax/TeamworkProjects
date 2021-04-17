@@ -34,7 +34,7 @@ public class MyFrame extends JFrame implements ActionListener {
 		
 		button = new JButton("Start");
 		image = new ImageIcon("logo.jpg");
-		menuBar = new JMenuBar();
+		menuBar = new JMenuBar();	
 		
 		this.setTitle("Face Recognition");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
