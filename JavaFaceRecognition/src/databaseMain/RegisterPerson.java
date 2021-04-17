@@ -1,4 +1,4 @@
-package databaseMain;
+package Database;
 
 import java.awt.EventQueue;
 
@@ -11,15 +11,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.awt.event.ActionEvent;
 import java.awt.Button;
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.FontFormatException;
+
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
 import javax.imageio.ImageIO;
@@ -77,15 +78,16 @@ public class RegisterPerson extends JFrame{
 		leftPanel.setLayout(null);
 		
 		
-		BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource("img\\leftBgd.jpg"));
-		ImageIcon icon = new ImageIcon(image);
-		JLabel imageLabel = new JLabel(icon);
+		JLabel imageLabel = new JLabel("");
 		imageLabel.setBounds(-52, 0, 443, 320);
 		leftPanel.add(imageLabel);
+		image = new ImageIcon();
+		image.setImage(ImageIO.read(getClass().getResource("/img/leftBgd.jpg"))); 
+		imageLabel.setIcon(image);
 		
 		JLabel leftText = new JLabel("FACE RECOGNITION R&A");
 		leftText.setForeground(Color.WHITE);
-		leftText.setFont(new Font("Microsoft YaHei", Font.BOLD, 18));
+		leftText.setFont(loadFont("chinese.msyh.ttf", 16 ,Font.TYPE1_FONT));
 		leftText.setBounds(63, 323, 231, 64);
 		leftPanel.add(leftText);
 		
@@ -163,4 +165,30 @@ public class RegisterPerson extends JFrame{
 		frame.setResizable(false);
 		
 	}
+	
+	private static Font loadFont(String fontName, float size, int style) {
+
+        InputStream openStream = RegisterPerson.class
+                .getResourceAsStream("/fontRes/"
+                        + fontName);
+        try {
+            Font font = Font.createFont(Font.TRUETYPE_FONT, openStream);
+            Font finalFont = font.deriveFont((float) size).deriveFont(style);
+            System.out.println("Loading font " + fontName + " " + finalFont);
+            return finalFont;
+        } catch (FontFormatException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (openStream != null) {
+                try {
+                    openStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
 }
