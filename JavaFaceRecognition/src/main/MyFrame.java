@@ -27,7 +27,7 @@ public class MyFrame extends JFrame implements ActionListener {
 	ImageIcon image;
 	JButton button;
 	JMenuBar menuBar;
-	
+	//
 
 	
 	MyFrame() {
