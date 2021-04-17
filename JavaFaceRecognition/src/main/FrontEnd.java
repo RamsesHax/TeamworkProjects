@@ -27,7 +27,7 @@ public class FrontEnd extends JFrame implements ActionListener {
 	JButton button;
 	JMenuBar menuBar;
 	
-	private FrontEnd.DaemonThread myDaemon = null;
+	//private FrontEnd.DaemonThread myDaemon = null;
 	
 	//JavaCV
 	VideoCapture webSource = null;
