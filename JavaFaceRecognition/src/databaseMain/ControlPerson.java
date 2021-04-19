@@ -21,7 +21,7 @@ public class ControlPerson {
 			connection.disconnect();
 			
 		}catch(SQLException e) {
-			System.out.println("Error :"+e);
+			System.out.println("E :"+e);
 		}
 	}
 }
