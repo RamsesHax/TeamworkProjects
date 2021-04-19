@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.EventQueue;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -8,6 +9,9 @@ import javax.swing.ImageIcon;
 import java.awt.Button;
 import javax.swing.JButton;
 import java.awt.Component;
+
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import java.awt.Color;
 
@@ -33,43 +37,52 @@ public class MainMenuFrame {
 
 	/**
 	 * Create the application.
+	 * @throws IOException 
 	 */
-	public MainMenuFrame() {
+	public MainMenuFrame() throws IOException {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws IOException 
 	 */
-	private void initialize() {
+	private void initialize() throws IOException {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 920, 530);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setResizable(false);
 		
 		Component verticalStrut = Box.createVerticalStrut(20);
 		verticalStrut.setBounds(131, 0, 18, 491);
 		frame.getContentPane().add(verticalStrut);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Alex\\OneDrive\\Desktop\\bgdl.jpg"));
-		lblNewLabel.setBounds(142, 0, 829, 491);
+		lblNewLabel.setIcon(new ImageIcon(ImageIO.read(getClass().getResource("/img/facialrecIcone.jpg"))));
+		lblNewLabel.setBounds(142, 0, 770, 533);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JButton btnNewButton = new JButton("Register");
 		btnNewButton.setBackground(new Color(81, 158, 153));
 		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.setBounds(0, 0, 139, 163);
+		btnNewButton.setBounds(0, 0, 142, 163);
+		btnNewButton.setFocusable(false);
+		btnNewButton.setBorder(BorderFactory.createBevelBorder(2));
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Recognition");
-		btnNewButton_1.setBounds(0, 162, 139, 163);
-		btnNewButton_1.setBackground(new Color(81, 158, 153));
+		btnNewButton_1.setBounds(0, 162, 142, 163);
+		btnNewButton_1.setBackground(new Color(144, 214, 210));
+		btnNewButton_1.setFocusable(false);
+		btnNewButton_1.setBorder(BorderFactory.createBevelBorder(2));
 		frame.getContentPane().add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Data");
-		btnNewButton_2.setBounds(0, 321, 139, 170);
+		btnNewButton_2.setBounds(0, 322, 142, 169);
 		btnNewButton_2.setBackground(new Color(81, 158, 153));
+		btnNewButton_2.setFocusable(false);
+		btnNewButton_2.setBorder(BorderFactory.createBevelBorder(2));
 		frame.getContentPane().add(btnNewButton_2);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(20);
