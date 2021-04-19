@@ -34,4 +34,8 @@ public class ConDatabase {
 		resultSet = stm.executeQuery(SQL);
 	}
 	
+	public static void main(String[] args) throws SQLException {
+		ConDatabase con = new ConDatabase();
+		con.connect();
+	}
 }

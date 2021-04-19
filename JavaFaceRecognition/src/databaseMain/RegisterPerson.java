@@ -27,18 +27,14 @@ import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 
-public class RegisterPerson extends JFrame implements ActionListener{
+public class RegisterPerson extends JFrame{
 
 	private JFrame frame;
 	private JTextField usernameField;
 	private JTextField mailField;
-	private JTextField dateOfBirthField;
-	private JTextField addressField;
+	private JTextField birthField;
+	private JTextField cityField;
 	private ImageIcon image;
-	Button signUp;
-	ConDatabase connect = new ConDatabase();
-	ModelPerson mPerson ;
-	ControlPerson cPerson;
 	
 	/**
 	 * Launch the application.
@@ -83,7 +79,7 @@ public class RegisterPerson extends JFrame implements ActionListener{
 		
 		
 		JLabel imageLabel = new JLabel("");
-		imageLabel.setBounds(-52, 0, 443, 320); 
+		imageLabel.setBounds(-52, 0, 443, 320);
 		leftPanel.add(imageLabel);
 		image = new ImageIcon();
 		image.setImage(ImageIO.read(getClass().getResource("/img/leftBgd.jpg"))); 
@@ -95,13 +91,12 @@ public class RegisterPerson extends JFrame implements ActionListener{
 		leftText.setBounds(63, 323, 231, 64);
 		leftPanel.add(leftText);
 		
-		signUp = new Button("SignUp");
+		Button signUp = new Button("SignUp");
 		signUp.setForeground(SystemColor.textHighlightText);
 		signUp.setBackground(new Color(25, 130, 183));
 		signUp.setBounds(382, 344, 324, 35);
 		signUp.setFont(loadFont("arial.ttf", 12 ,Font.BOLD));
 		frame.getContentPane().add(signUp);
-		signUp.addActionListener(this);
 		
 		usernameField = new JTextField();
 		usernameField.setBounds(364, 43, 354, 35);
@@ -131,10 +126,10 @@ public class RegisterPerson extends JFrame implements ActionListener{
 		mailLabel.setBounds(364, 89, 76, 23);
 		frame.getContentPane().add(mailLabel);
 		
-		dateOfBirthField = new JTextField();
-		dateOfBirthField.setColumns(10);
-		dateOfBirthField.setBounds(364, 179, 354, 35);
-		frame.getContentPane().add(dateOfBirthField);
+		birthField = new JTextField();
+		birthField.setColumns(10);
+		birthField.setBounds(364, 179, 354, 35);
+		frame.getContentPane().add(birthField);
 		
 		JSeparator separatorPassword = new JSeparator();
 		separatorPassword.setBounds(364, 213, 354, 2);
@@ -145,10 +140,10 @@ public class RegisterPerson extends JFrame implements ActionListener{
 		birthLabel.setBounds(364, 157, 150, 23);
 		frame.getContentPane().add(birthLabel);
 		
-		addressField = new JTextField();
-		addressField.setColumns(10);
-		addressField.setBounds(364, 247, 354, 35);
-		frame.getContentPane().add(addressField);
+		cityField = new JTextField();
+		cityField.setColumns(10);
+		cityField.setBounds(364, 247, 354, 35);
+		frame.getContentPane().add(cityField);
 		
 		JSeparator separatorRepeatpw = new JSeparator();
 		separatorRepeatpw.setBounds(364, 281, 354, 2);
@@ -196,20 +191,4 @@ public class RegisterPerson extends JFrame implements ActionListener{
         }
         return null;
     }
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==signUp) {
-			mPerson = new ModelPerson();
-			cPerson = new ControlPerson();
-			
-			mPerson.setUsername(usernameField.getText());
-			mPerson.setEmail(mailField.getText());
-			mPerson.setDateOfBirth(dateOfBirthField.getText());
-			mPerson.setAddress(addressField.getText());
-			
-			cPerson.insert(mPerson);
-		}
-		
-	}
 }
