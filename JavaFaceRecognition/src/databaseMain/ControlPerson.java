@@ -8,6 +8,8 @@ public class ControlPerson {
 	
 	public void insert(ModelPerson person) {
 		try {
+			//in if sa intre si lucruri precum nr de caractere si eventual un format.
+			if(!person.getUsername().equals("") || ...) {
 			
 			connection.connect();
 			PreparedStatement pst = connection.connection.prepareStatement("INSERT INTO accounts (id, user, email , date, address) values (?, ?, ?, ?, ?)");
@@ -20,6 +22,9 @@ public class ControlPerson {
 			System.out.println("Adaugat in baza de date : " + person.getUsername());
 			connection.disconnect();
 			
+			}else {
+				//instantiate new JOptionPane cu mesajul like :"Toate campurile trebuie sa fie valide"
+			}
 		}catch(SQLException e) {
 			System.out.println("E :"+e);
 		}
