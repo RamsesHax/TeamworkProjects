@@ -12,9 +12,9 @@ public class ConDatabase {
 	public ResultSet resultSet;
 	
 	private final String driver = "org.mysql.driver";
-	private final String root = "jdbc:mysql://127.0.0.1/facerecognition";
-	private final String user = "root";
-	private final String pass = "Mottocros123";
+	private final String root = "jdbc:mysql://sql11.freesqldatabase.com/sql11406818";
+	private final String user = "sql11406818";
+	private final String pass = "hBANiHPYel";
 	
 	public Connection connection;
 	

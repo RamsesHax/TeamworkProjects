@@ -10,7 +10,7 @@ public class ControlPerson {
 		try {
 			
 			connection.connect();
-			PreparedStatement pst = connection.connection.prepareStatement("INSERT INTO account (id, user, email , date, address) values (?, ?, ?, ?, ?)");
+			PreparedStatement pst = connection.connection.prepareStatement("INSERT INTO accounts (id, user, email , date, address) values (?, ?, ?, ?, ?)");
 			pst.setInt(1, person.getId());
 			pst.setString(2, person.getUsername());
 			pst.setString(3, person.getEmail());
