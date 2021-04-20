@@ -9,20 +9,32 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.sql.SQLException;
+import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import org.bytedeco.javacpp.BytePointer;
+import static org.bytedeco.opencv.global.opencv_imgcodecs.imencode;
+import static org.bytedeco.opencv.global.opencv_imgcodecs.imwrite;
+import org.bytedeco.opencv.global.opencv_imgproc;
+import static org.bytedeco.opencv.global.opencv_imgproc.COLOR_BGRA2GRAY;
+import static org.bytedeco.opencv.global.opencv_imgproc.cvtColor;
+import static org.bytedeco.opencv.global.opencv_imgproc.rectangle;
 import org.bytedeco.opencv.opencv_core.Mat;
+import org.bytedeco.opencv.opencv_core.Rect;
 import org.bytedeco.opencv.opencv_core.RectVector;
 import org.bytedeco.opencv.opencv_core.Scalar;
+import org.bytedeco.opencv.opencv_core.Size;
 import org.bytedeco.opencv.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.opencv.opencv_videoio.VideoCapture;
-import org.opencv.core.Rect;
 import databaseMain.ConDatabase;
 
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -57,7 +69,7 @@ public class CaptureFrame extends JFrame {
 	class DaemonThread implements Runnable {
 
         protected volatile boolean runnable = false;
-
+        
         @Override
         public void run() {
             synchronized (this) {
