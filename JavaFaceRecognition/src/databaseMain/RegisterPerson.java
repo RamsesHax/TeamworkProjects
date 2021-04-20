@@ -49,7 +49,7 @@ public class RegisterPerson extends JFrame implements ActionListener{
 				try {
 					RegisterPerson window = new RegisterPerson();
 					window.setUndecorated(isDefaultLookAndFeelDecorated());
-					window.frame.setVisible(true);
+					window.getFrame().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -70,15 +70,15 @@ public class RegisterPerson extends JFrame implements ActionListener{
 	 * @throws IOException 
 	 */
 	private void initialize() throws IOException {
-		frame = new JFrame();
-		frame.setBackground(Color.WHITE);
-		frame.getContentPane().setBackground(Color.WHITE);
-		frame.getContentPane().setLayout(null);
+		setFrame(new JFrame());
+		getFrame().setBackground(Color.WHITE);
+		getFrame().getContentPane().setBackground(Color.WHITE);
+		getFrame().getContentPane().setLayout(null);
 		
 		JPanel leftPanel = new JPanel();
 		leftPanel.setBackground(Color.DARK_GRAY);
 		leftPanel.setBounds(0, 0, 354, 461);
-		frame.getContentPane().add(leftPanel);
+		getFrame().getContentPane().add(leftPanel);
 		leftPanel.setLayout(null);
 		
 		
@@ -100,74 +100,74 @@ public class RegisterPerson extends JFrame implements ActionListener{
 		signUp.setBackground(new Color(25, 130, 183));
 		signUp.setBounds(382, 344, 324, 35);
 		signUp.setFont(loadFont("arial.ttf", 12 ,Font.BOLD));
-		frame.getContentPane().add(signUp);
+		getFrame().getContentPane().add(signUp);
 		signUp.addActionListener(this);
 		
 		usernameField = new JTextField();
 		usernameField.setBounds(364, 43, 354, 35);
-		frame.getContentPane().add(usernameField);
+		getFrame().getContentPane().add(usernameField);
 		usernameField.setColumns(10);
 		
 		JSeparator separatorUsername = new JSeparator();
 		separatorUsername.setBounds(364, 77, 354, 2);
-		frame.getContentPane().add(separatorUsername);
+		getFrame().getContentPane().add(separatorUsername);
 		
 		JLabel usernameLabel = new JLabel("USERNAME");
 		usernameLabel.setFont(loadFont("Tahoma.ttf", 13 ,Font.PLAIN));
 		usernameLabel.setBounds(364, 21, 76, 23);
-		frame.getContentPane().add(usernameLabel);
+		getFrame().getContentPane().add(usernameLabel);
 		
 		mailField = new JTextField();
 		mailField.setColumns(10);
 		mailField.setBounds(364, 111, 354, 35);
-		frame.getContentPane().add(mailField);
+		getFrame().getContentPane().add(mailField);
 		
 		JSeparator separatorMail = new JSeparator();
 		separatorMail.setBounds(364, 145, 354, 2);
-		frame.getContentPane().add(separatorMail);
+		getFrame().getContentPane().add(separatorMail);
 		
 		JLabel mailLabel = new JLabel("EMAIL");
 		mailLabel.setFont(loadFont("Tahoma.ttf", 13 ,Font.PLAIN));
 		mailLabel.setBounds(364, 89, 76, 23);
-		frame.getContentPane().add(mailLabel);
+		getFrame().getContentPane().add(mailLabel);
 		
 		dateOfBirthField = new JTextField();
 		dateOfBirthField.setColumns(10);
 		dateOfBirthField.setBounds(364, 179, 354, 35);
-		frame.getContentPane().add(dateOfBirthField);
+		getFrame().getContentPane().add(dateOfBirthField);
 		
 		JSeparator separatorPassword = new JSeparator();
 		separatorPassword.setBounds(364, 213, 354, 2);
-		frame.getContentPane().add(separatorPassword);
+		getFrame().getContentPane().add(separatorPassword);
 		
 		JLabel birthLabel = new JLabel("DATE OF BIRTH");
 		birthLabel.setFont(loadFont("Tahoma.ttf", 13 ,Font.PLAIN));
 		birthLabel.setBounds(364, 157, 150, 23);
-		frame.getContentPane().add(birthLabel);
+		getFrame().getContentPane().add(birthLabel);
 		
 		addressField = new JTextField();
 		addressField.setColumns(10);
 		addressField.setBounds(364, 247, 354, 35);
-		frame.getContentPane().add(addressField);
+		getFrame().getContentPane().add(addressField);
 		
 		JSeparator separatorRepeatpw = new JSeparator();
 		separatorRepeatpw.setBounds(364, 281, 354, 2);
-		frame.getContentPane().add(separatorRepeatpw);
+		getFrame().getContentPane().add(separatorRepeatpw);
 		
 		JLabel cityLabel = new JLabel("ADDRESS");
 		cityLabel.setFont(loadFont("Tahoma.ttf", 13 ,Font.PLAIN));
 		cityLabel.setBounds(364, 225, 117, 23);
-		frame.getContentPane().add(cityLabel);
+		getFrame().getContentPane().add(cityLabel);
 		
 		JCheckBox termsAndConditions = new JCheckBox("I have read and agree / agreed with the terms and conditions");
 		termsAndConditions.setFont(loadFont("Tahoma.ttf", 11 ,Font.ITALIC));
 		termsAndConditions.setBackground(SystemColor.activeCaption);
 		termsAndConditions.setForeground(Color.WHITE);
 		termsAndConditions.setBounds(365, 300, 324, 23);
-		frame.getContentPane().add(termsAndConditions);
-		frame.setBounds(100, 100, 750, 430);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
+		getFrame().getContentPane().add(termsAndConditions);
+		getFrame().setBounds(100, 100, 750, 430);
+		getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		getFrame().setResizable(false);
 		
 	}
 	
@@ -211,5 +211,13 @@ public class RegisterPerson extends JFrame implements ActionListener{
 			cPerson.insert(mPerson);
 		}
 		
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
 	}
 }

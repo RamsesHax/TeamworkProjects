@@ -1,10 +1,17 @@
 package main;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+import databaseMain.RegisterPerson;
+
 import javax.swing.ImageIcon;
 import java.awt.Button;
 import javax.swing.JButton;
@@ -15,9 +22,12 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import java.awt.Color;
 
-public class MainMenuFrame {
-
+public class MainMenuFrame implements ActionListener{
+	JButton btnNewButton;
+	JButton btnNewButton_1;
+	JButton btnNewButton_2;
 	private JFrame frame;
+	boolean frameCheck = false;
 
 	/**
 	 * Launch the application.
@@ -63,15 +73,16 @@ public class MainMenuFrame {
 		lblNewLabel.setBounds(134, 0, 770, 533);
 		frame.getContentPane().add(lblNewLabel);
 		
-		JButton btnNewButton = new JButton("Register");
+		btnNewButton = new JButton("Register");
 		btnNewButton.setBackground(new Color(4,13,30));
 		btnNewButton.setForeground(new Color(159,240,248));
 		btnNewButton.setBounds(0, 0, 134, 163);
 		btnNewButton.setFocusable(false);
 		btnNewButton.setBorder(BorderFactory.createLineBorder(new Color(1,68,98)));
+		btnNewButton.addActionListener(this);
 		frame.getContentPane().add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Recognition");
+		btnNewButton_1 = new JButton("Recognition");
 		btnNewButton_1.setBounds(0, 162, 134, 163);
 		btnNewButton_1.setBackground(new Color(4,13,30));
 		btnNewButton_1.setForeground(new Color(159,240,248));
@@ -79,7 +90,7 @@ public class MainMenuFrame {
 		btnNewButton_1.setBorder(BorderFactory.createLineBorder(new Color(1,68,98)));
 		frame.getContentPane().add(btnNewButton_1);
 		
-		JButton btnNewButton_2 = new JButton("Data");
+		btnNewButton_2 = new JButton("Data");
 		btnNewButton_2.setBounds(0, 322, 134, 169);
 		btnNewButton_2.setBackground(new Color(4,13,30));
 		btnNewButton_2.setForeground(new Color(159,240,248));
@@ -94,5 +105,30 @@ public class MainMenuFrame {
 		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
 		horizontalStrut_1.setBounds(0, 321, 139, 5);
 		frame.getContentPane().add(horizontalStrut_1);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()== btnNewButton) {
+			new Thread() {
+				public void run() {
+					try {
+						RegisterPerson window = new RegisterPerson();
+						window.getFrame().setVisible(true);
+								frame.setEnabled(false);
+								window.getFrame().addWindowListener(new WindowAdapter(){
+									public void windowClosing(WindowEvent e) {
+										if(e.getSource()==window.getFrame()) {
+											frame.setEnabled(true);
+										}
+									}
+								});
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}.start();
+		}
+		
 	}
 }
