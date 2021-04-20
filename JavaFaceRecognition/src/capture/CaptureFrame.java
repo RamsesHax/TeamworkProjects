@@ -4,18 +4,174 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
+
+import org.bytedeco.javacpp.BytePointer;
+import org.bytedeco.opencv.opencv_core.Mat;
+import org.bytedeco.opencv.opencv_core.RectVector;
+import org.bytedeco.opencv.opencv_core.Scalar;
+import org.bytedeco.opencv.opencv_objdetect.CascadeClassifier;
+import org.bytedeco.opencv.opencv_videoio.VideoCapture;
+import org.opencv.core.Rect;
+import databaseMain.ConDatabase;
+
+
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class CaptureFrame extends JFrame {
 	private long total;
 	private JFrame frame;
+	private CaptureFrame.DaemonThread myThread = null;
+	private JLabel cameraLabel;
+	private JLabel counterLabel;
+	private JPanel panel;
+	private JButton captureButton;
+	private JLabel topTextLabel;
+	private JLabel bgdLabel;
+	private ImageIcon image;
+	
+	//JavaCV
+	VideoCapture webSource = null;
+	Mat cameraImage = new Mat();
+	CascadeClassifier cascade = new CascadeClassifier("");
+	BytePointer mem = new BytePointer();
+	RectVector detectedFaces = new RectVector();
+	
+	//Vars
+	String root;
+	int numSamples = 25, sample = 1;
+	
+	//Utils
+	ConDatabase connected = new ConDatabase();
+	
+	class DaemonThread implements Runnable {
+
+        protected volatile boolean runnable = false;
+
+        @Override
+        public void run() {
+            synchronized (this) {
+                while (runnable) {
+                    try {
+                        if (webSource.grab()) {
+                            webSource.retrieve(cameraImage);
+                            Graphics g = cameraLabel.getGraphics();
+
+                            Mat imageColor = new Mat(); 
+                            imageColor = cameraImage;
+
+                            Mat imageGray = new Mat(); 
+                            cvtColor(imageColor, imageGray, COLOR_BGRA2GRAY);
+//                            flip(cameraImage, cameraImage, +1);
+
+                            RectVector detectedFaces = new RectVector(); //face detection
+                            cascade.detectMultiScale(imageColor, detectedFaces, 1.1, 1, 1, new Size(150, 150), new Size(500, 500));
+
+                            for (int i = 0; i < detectedFaces.size(); i++) { //cate fete detecteaza
+                                Rect dadosFace = detectedFaces.get(0);
+
+                                rectangle(imageColor, dadosFace, new Scalar(255, 255, 0, 2), 3, 0, 0);
+
+                                Mat face = new Mat(imageGray, dadosFace);
+                                opencv_imgproc.resize(face, face, new Size(160, 160));
+
+                                if (saveButton.getModel().isPressed()) { //when save button is pressed
+                                    if (txt_first_name.getText().equals("") || txt_first_name.getText().equals(" ")) {
+                                        JOptionPane.showMessageDialog(null, "Campo vazio");
+                                    } else if (txt_first_name.getText().equals("") || txt_first_name.getText().equals(" ")) {
+                                        JOptionPane.showMessageDialog(null, "Campo vazio");
+                                    } else if (txt_last_name.getText().equals("") || txt_last_name.getText().equals(" ")) {
+                                        JOptionPane.showMessageDialog(null, "Campo vazio");
+                                    } else if (txt_office.getText().equals("") || txt_office.getText().equals(" ")) {
+                                        JOptionPane.showMessageDialog(null, "Campo vazio");
+                                    } else {
+                                        if (sample <= numSamples) {                                     
+                                            String cropped = "C:\\photos\\person." + txt_id_label.getText() + "." + sample + ".jpg";
+                                            imwrite(cropped, face);
+
+                                            //System.out.println("Foto " + sample + " capture\n");
+                                            counterLabel.setText(String.valueOf(sample) + "/25");
+                                            sample++;
+                                        }
+                                        if (sample > 25) {
+                                            new TrainLBPH().trainPhotos();//cand sunt 25 se termina
+                                            insertDatabase(); //insert database
+
+                                            System.out.println("File Generated");
+                                            stopCamera(); 
+                                        }
+
+                                    }
+                                }
+                            }
+
+                            imencode(".bmp", cameraImage, mem);
+                            Image im = ImageIO.read(new ByteArrayInputStream(mem.getStringBytes()));
+                            BufferedImage buff = (BufferedImage) im;
+                            try {
+                                if (g.drawImage(buff, 0, 0, 360, 390, 0, 0, buff.getWidth(), buff.getHeight(), null)) {
+                                    if (runnable == false) {
+                                        System.out.println("Salve a Foto");
+                                        this.wait();
+                                    }
+                                }
+                            } catch (Exception e) {
+                            }
+                        }
+
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * This method inserts the information into the database.
+     */
+
+
+    /**
+     * This method turns off the software connection with your web cam.
+     */
+    public void stopCamera() {
+        myThread.runnable = false;
+        webSource.release();
+        dispose();
+    }
+
+    /**
+     * This method connects the software to the web cam.
+     * <br><br>
+     * VideoCapture(0); is the default camera on your computer.
+     */
+    public void startCamera() {
+        new Thread() {
+            @Override
+            public void run() {
+                webSource = new VideoCapture(0);
+
+                myThread = new RegisterFace.DaemonThread(); // vom avea nevoie de o clasa RegisterFace
+                Thread t = new Thread(myThread);
+                t.setDaemon(true);
+                myThread.runnable = true;
+                t.start();
+            }
+        }.start();
+    }
+
+
 
 
 	/**
@@ -37,27 +193,28 @@ public class CaptureFrame extends JFrame {
 
 	/**
 	 * Create the application.
+	 * @throws IOException 
 	 */
-	public CaptureFrame() {
+	public CaptureFrame() throws IOException {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws IOException 
 	 */
-	private void initialize() {
+	private void initialize() throws IOException {
 		setFrame(new JFrame());
 		getFrame().setResizable(false);
 		getFrame().setBounds(100, 100, 412, 550);
-		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getFrame().getContentPane().setLayout(null);
 		
 				
-		JLabel cameraLabel = new JLabel("");
+		cameraLabel = new JLabel("");
 		cameraLabel.setBounds(67, 73, 271, 287);
 		getFrame().getContentPane().add(cameraLabel);
 		
-		JLabel counterLabel = new JLabel("00");
+		counterLabel = new JLabel("00");
 		counterLabel.setHorizontalAlignment(JLabel.CENTER);
 		counterLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		counterLabel.setForeground(Color.WHITE);
@@ -65,13 +222,13 @@ public class CaptureFrame extends JFrame {
 		counterLabel.setBounds(173, 420, 63, 25);
 		getFrame().getContentPane().add(counterLabel);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setBounds(0, 0, 434, 511);
 		getFrame().getContentPane().add(panel);
 		panel.setLayout(null);
 		
 			
-		JButton captureButton = new JButton("CAPTURE");
+		captureButton = new JButton("CAPTURE");
 		captureButton.setBounds(161, 456, 89, 23);
 		captureButton.setFocusable(false);
 		captureButton.setBorder(BorderFactory.createLineBorder(new Color(29, 192, 242)));
@@ -87,7 +244,7 @@ public class CaptureFrame extends JFrame {
 		});
 
 		
-		JLabel topTextLabel = new JLabel("CAPTURE 25 SNAPSHOTS");
+		topTextLabel = new JLabel("CAPTURE 25 SNAPSHOTS");
 		topTextLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 21));
 		topTextLabel.setForeground(Color.WHITE);
 		topTextLabel.setBounds(64, 11, 276, 57);
@@ -95,8 +252,11 @@ public class CaptureFrame extends JFrame {
 		panel.add(topTextLabel);
 
 		
-		JLabel bgdLabel = new JLabel("");
-		bgdLabel.setIcon(new ImageIcon("C:\\Users\\Alex\\OneDrive\\Desktop\\bgdccccccccp.jpg"));
+		
+		bgdLabel = new JLabel("");
+		image = new ImageIcon();
+		bgdLabel.setIcon(image);
+		image.setImage(ImageIO.read(getClass().getResource("/img/bgdcapture.jpg"))); 
 		bgdLabel.setBounds(0, 0, 406, 521);
 		panel.add(bgdLabel);
 
