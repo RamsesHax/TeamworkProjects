@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import java.awt.Color;
@@ -52,14 +53,15 @@ public class CaptureFrame extends JFrame {
 		getFrame().getContentPane().setLayout(null);
 		
 				
-				JLabel cameraLabel = new JLabel("");
-				cameraLabel.setBounds(67, 73, 271, 287);
-				getFrame().getContentPane().add(cameraLabel);
+		JLabel cameraLabel = new JLabel("");
+		cameraLabel.setBounds(67, 73, 271, 287);
+		getFrame().getContentPane().add(cameraLabel);
 		
 		JLabel counterLabel = new JLabel("00");
 		counterLabel.setHorizontalAlignment(JLabel.CENTER);
 		counterLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		counterLabel.setForeground(Color.WHITE);
+		counterLabel.setBorder(BorderFactory.createBevelBorder(1));
 		counterLabel.setBounds(173, 420, 63, 25);
 		getFrame().getContentPane().add(counterLabel);
 		
@@ -69,22 +71,27 @@ public class CaptureFrame extends JFrame {
 		panel.setLayout(null);
 		
 			
-				JButton captureButton = new JButton("CAPTURE");
-				captureButton.setBounds(161, 456, 89, 23);
-				panel.add(captureButton);
-				captureButton.addActionListener(new ActionListener() { //de fiecare data cand e apasat se incrementeaza nr de capturi
-					public void actionPerformed(ActionEvent e) {
-						total ++;
-						String counter = String.format("%02d", total); //converteste 1 in 01
-					    counterLabel.setText(""+counter);
-					}
-				});
+		JButton captureButton = new JButton("CAPTURE");
+		captureButton.setBounds(161, 456, 89, 23);
+		captureButton.setFocusable(false);
+		captureButton.setBorder(BorderFactory.createLineBorder(new Color(29, 192, 242)));
+		captureButton.setBackground(new Color(7, 56, 71));
+		captureButton.setForeground(Color.WHITE);
+		panel.add(captureButton);
+		captureButton.addActionListener(new ActionListener() { //de fiecare data cand e apasat se incrementeaza nr de capturi
+			public void actionPerformed(ActionEvent e) {
+				total ++;
+				String counter = String.format("%02d", total); //converteste 1 in 01
+					  counterLabel.setText(""+counter);
+			}
+		});
 
 		
 		JLabel topTextLabel = new JLabel("CAPTURE 25 SNAPSHOTS");
 		topTextLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 21));
 		topTextLabel.setForeground(Color.WHITE);
-		topTextLabel.setBounds(67, 11, 296, 57);
+		topTextLabel.setBounds(64, 11, 276, 57);
+		topTextLabel.setBorder(BorderFactory.createLineBorder(new Color(29, 192, 242)));
 		panel.add(topTextLabel);
 
 		
