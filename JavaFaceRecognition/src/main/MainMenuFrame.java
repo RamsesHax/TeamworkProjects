@@ -60,29 +60,31 @@ public class MainMenuFrame {
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(ImageIO.read(getClass().getResource("/img/facialrecIcone.jpg"))));
-		lblNewLabel.setBounds(142, 0, 770, 533);
+		lblNewLabel.setBounds(134, 0, 770, 533);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JButton btnNewButton = new JButton("Register");
-		btnNewButton.setBackground(new Color(81, 158, 153));
-		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.setBounds(0, 0, 142, 163);
+		btnNewButton.setBackground(new Color(4,13,30));
+		btnNewButton.setForeground(new Color(159,240,248));
+		btnNewButton.setBounds(0, 0, 134, 163);
 		btnNewButton.setFocusable(false);
-		btnNewButton.setBorder(BorderFactory.createBevelBorder(2));
+		btnNewButton.setBorder(BorderFactory.createLineBorder(new Color(1,68,98)));
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Recognition");
-		btnNewButton_1.setBounds(0, 162, 142, 163);
-		btnNewButton_1.setBackground(new Color(144, 214, 210));
+		btnNewButton_1.setBounds(0, 162, 134, 163);
+		btnNewButton_1.setBackground(new Color(4,13,30));
+		btnNewButton_1.setForeground(new Color(159,240,248));
 		btnNewButton_1.setFocusable(false);
-		btnNewButton_1.setBorder(BorderFactory.createBevelBorder(2));
+		btnNewButton_1.setBorder(BorderFactory.createLineBorder(new Color(1,68,98)));
 		frame.getContentPane().add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Data");
-		btnNewButton_2.setBounds(0, 322, 142, 169);
-		btnNewButton_2.setBackground(new Color(81, 158, 153));
+		btnNewButton_2.setBounds(0, 322, 134, 169);
+		btnNewButton_2.setBackground(new Color(4,13,30));
+		btnNewButton_2.setForeground(new Color(159,240,248));
 		btnNewButton_2.setFocusable(false);
-		btnNewButton_2.setBorder(BorderFactory.createBevelBorder(2));
+		btnNewButton_2.setBorder(BorderFactory.createLineBorder(new Color(1,68,98)));
 		frame.getContentPane().add(btnNewButton_2);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(20);
