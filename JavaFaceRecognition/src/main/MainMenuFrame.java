@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import capture.CaptureFrame;
 import databaseMain.RegisterPerson;
 
 import javax.swing.ImageIcon;
@@ -88,6 +89,7 @@ public class MainMenuFrame implements ActionListener{
 		btnNewButton_1.setForeground(new Color(159,240,248));
 		btnNewButton_1.setFocusable(false);
 		btnNewButton_1.setBorder(BorderFactory.createLineBorder(new Color(1,68,98)));
+		btnNewButton_1.addActionListener(this);
 		frame.getContentPane().add(btnNewButton_1);
 		
 		btnNewButton_2 = new JButton("Data");
@@ -128,7 +130,27 @@ public class MainMenuFrame implements ActionListener{
 					}
 				}
 			}.start();
+		} else if(e.getSource()== btnNewButton_1) {
+			new Thread() {
+				public void run() {
+					try {
+						CaptureFrame window = new CaptureFrame();
+						window.getFrame().setVisible(true);
+								frame.setEnabled(false);
+								window.getFrame().addWindowListener(new WindowAdapter(){
+									public void windowClosing(WindowEvent e) {
+										if(e.getSource()==window.getFrame()) {
+											frame.setEnabled(true);
+										}
+									}
+								});
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}.start();
 		}
 		
 	}
+	
 }
