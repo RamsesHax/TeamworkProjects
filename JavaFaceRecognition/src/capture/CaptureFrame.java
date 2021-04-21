@@ -99,7 +99,7 @@ public class CaptureFrame extends JFrame {
 //                            flip(cameraImage, cameraImage, +1);
 
                             RectVector detectedFaces = new RectVector(); //face detection
-                            cascade.detectMultiScale(imageColor, detectedFaces, 1.1, 1, 1, new Size(150, 150), new Size(500, 500));
+                            cascade.detectMultiScale(imageColor, detectedFaces, 1.1, 1, 1, new org.bytedeco.opencv.opencv_core.Size(150, 150),new  org.bytedeco.opencv.opencv_core.Size(500, 500));
 
                             for (int i = 0; i < detectedFaces.size(); i++) { //cate fete detecteaza
                                 Rect dadosFace = detectedFaces.get(0);
@@ -107,7 +107,7 @@ public class CaptureFrame extends JFrame {
                                 rectangle(imageColor, dadosFace, new Scalar(255, 255, 0, 2), 3, 0, 0);
 
                                 Mat face = new Mat(imageGray, dadosFace);
-                                opencv_imgproc.resize(face, face, new Size(160, 160));
+                                opencv_imgproc.resize(face, face, new org.bytedeco.opencv.opencv_core.Size(160, 160));
 
                                 if (captureButton.getModel().isPressed()) { //when save button is pressed
                                     if (txt_first_name.getText().equals("") || txt_first_name.getText().equals(" ")) {
@@ -182,7 +182,8 @@ public class CaptureFrame extends JFrame {
     	for(File image : files) {
     	Mat photo = imread(image.getAbsolutePath(), COLOR_BGRA2GRAY);//problema cu importul la imread simplu respectiv GRAYSCALE
     	int idPerson = Integer.parseInt(image.getName().split("\\.")[1]);
-    	opencv_imgproc.resize(photo, photo, new Size(160,160));
+    	org.bytedeco.opencv.opencv_core.Size a = new org.bytedeco.opencv.opencv_core.Size(160,160);
+    	opencv_imgproc.resize(photo, photo, a);
     	
     	photos.put(counter,photo);
     	labelsBuffer.put(counter, idPerson);
