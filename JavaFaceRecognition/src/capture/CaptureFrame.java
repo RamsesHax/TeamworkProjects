@@ -9,10 +9,16 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 
+import org.opencv.imgproc.Imgproc;
+import org.opencv.core.Point;
+import org.opencv.core.Size;
+import org.opencv.highgui.*;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FilenameFilter;
 import java.sql.SQLException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -24,12 +30,17 @@ import static org.bytedeco.opencv.global.opencv_imgproc.COLOR_BGRA2GRAY;
 import static org.bytedeco.opencv.global.opencv_imgproc.cvtColor;
 import static org.bytedeco.opencv.global.opencv_imgproc.rectangle;
 import org.bytedeco.opencv.opencv_core.Mat;
+import org.bytedeco.opencv.opencv_core.MatVector;
 import org.bytedeco.opencv.opencv_core.Rect;
 import org.bytedeco.opencv.opencv_core.RectVector;
 import org.bytedeco.opencv.opencv_core.Scalar;
 import org.bytedeco.opencv.opencv_core.Size;
 import org.bytedeco.opencv.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.opencv.opencv_videoio.VideoCapture;
+import org.opencv.core.CvType;
+import org.opencv.highgui.HighGui;
+import org.opencv.imgcodecs.Imgcodecs;
+
 import databaseMain.ConDatabase;
 
 
@@ -38,6 +49,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.nio.IntBuffer;
 import java.awt.event.ActionEvent;
 
 public class CaptureFrame extends JFrame {
@@ -149,10 +161,36 @@ public class CaptureFrame extends JFrame {
         }
     }
 
-    /**
-     * This method inserts the information into the database.
-     */
+    public void generate() {
+    	File directory = new File("D:\\SnapshotsTaken");
+    	FilenameFilter filter = new FilenameFilter() {
 
+			@Override
+			public boolean accept(File dir, String name) {
+				// TODO Auto-generated method stub
+				return name.endsWith(".jpg") || name.endsWith(".png");
+			}
+    		
+    	};
+    	
+    	File[] files = directory.listFiles(filter); // only our filter
+    	MatVector photos = new MatVector();
+    	Mat labels = new Mat(files.length, 1, CvType.CV_32SC1);
+    	IntBuffer labelsBuffer = labels.createBuffer();
+    	
+    	int counter = 0;
+    	for(File image : files) {
+    	Mat photo = Imgcodecs.imread(image.getAbsolutePath(), Imgcodecs.IMREAD_GRAYSCALE);//problema cu importul la imread simplu respectiv GRAYSCALE
+    	int idPerson = Integer.parseInt(image.getName().split("\\.")[1]);
+    	opencv_imgproc.resize(photo, photo, new Size(160,160));
+    	
+    	photos.put(counter,photo);
+    	labelsBuffer.put(counter, idPerson);
+    	counter++;
+    	
+    	}
+    	
+    }
 
     /**
      * This method turns off the software connection with your web cam.
@@ -183,7 +221,10 @@ public class CaptureFrame extends JFrame {
         }.start();
     }
 
-
+    
+    public void insertDatabase() {
+    	
+    }
 
 
 	/**
