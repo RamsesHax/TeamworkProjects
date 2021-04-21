@@ -23,6 +23,9 @@ import java.awt.FontFormatException;
 
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
+
+import capture.CaptureFrame;
+
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
@@ -197,7 +200,11 @@ public class RegisterPerson extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+	/*	String userName = usernameField.getText();
+		String mail =  mailField.getText();
+		String dob = dateOfBirthField.getText();
+		String address = addressField.getText();
+		new CaptureFrame(userName, mail, dob, address).setVisible(true);*/
 	}
 
 	public JFrame getFrame() {

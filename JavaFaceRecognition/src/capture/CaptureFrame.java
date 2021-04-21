@@ -34,6 +34,7 @@ import org.bytedeco.opencv.opencv_core.MatVector;
 import org.bytedeco.opencv.opencv_core.Rect;
 import org.bytedeco.opencv.opencv_core.RectVector;
 import org.bytedeco.opencv.opencv_core.Scalar;
+import org.bytedeco.opencv.opencv_face.LBPHFaceRecognizer;
 import org.bytedeco.opencv.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.opencv.opencv_videoio.VideoCapture;
 import org.opencv.core.CvType;
@@ -72,7 +73,7 @@ public class CaptureFrame extends JFrame {
 	RectVector detectedFaces = new RectVector();
 	
 	//Vars
-	String root;
+	String root, userName, dob, mail, address;
 	int numSamples = 25, sample = 1;
 	
 	//Utils
@@ -110,32 +111,29 @@ public class CaptureFrame extends JFrame {
                                 opencv_imgproc.resize(face, face, new org.bytedeco.opencv.opencv_core.Size(160, 160));
 
                                 if (captureButton.getModel().isPressed()) { //when save button is pressed
-                                    if (txt_first_name.getText().equals("") || txt_first_name.getText().equals(" ")) {
-                                        JOptionPane.showMessageDialog(null, "Campo vazio");
-                                    } else if (txt_first_name.getText().equals("") || txt_first_name.getText().equals(" ")) {
-                                        JOptionPane.showMessageDialog(null, "Campo vazio");
-                                    } else if (txt_last_name.getText().equals("") || txt_last_name.getText().equals(" ")) {
-                                        JOptionPane.showMessageDialog(null, "Campo vazio");
-                                    } else if (txt_office.getText().equals("") || txt_office.getText().equals(" ")) {
-                                        JOptionPane.showMessageDialog(null, "Campo vazio");
-                                    } else {
-                                        if (sample <= numSamples) {                                     
-                                            String cropped = "C:\\photos\\person." + txt_id_label.getText() + "." + sample + ".jpg";
+                                        if (sample <= numSamples) {         
+                                            String cropped = "C:\\photos\\person." + usernameField.getText() + "." + sample + ".jpg";
+                                         /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Aici trebuie gasit usernameField-ul somehow @@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+                                            /* Are legatura cu RegisterPerson, deci, inregistrezi pe cineva, sunt stocate urmatoarele date despre el:
+                                             * - nume , - data nasterii, - mail, - adresa
+                                             * iar noi trebuie sa le luam si sa le adaugam ceva de genul : # vezi pe discord la notes 
+                                             * si trebuie reglat insertDatabase() de mai jos care cred ca are legatura cu problema asta
+                                             */
                                             imwrite(cropped, face);
 
-                                            //System.out.println("Foto " + sample + " capture\n");
+                                            /*System.out.println("Foto " + sample + " capture\n");*/
                                             counterLabel.setText(String.valueOf(sample) + "/25");
                                             sample++;
-                                        }
+                                            }
                                         if (sample > 25) {
-                                            new TrainLBPH().trainPhotos();//cand sunt 25 se termina
+                                            new TrainLBPH().generate();//cand sunt 25 se termina
                                             insertDatabase(); //insert database
 
                                             System.out.println("File Generated");
                                             stopCamera(); 
                                         }
 
-                                    }
+                                    
                                 }
                             }
 
@@ -160,8 +158,8 @@ public class CaptureFrame extends JFrame {
             }
         }
     }
-
-    public void generate() {
+	 // !!! Clasa TrainLBPH contine acum metoda generate() !!!
+    /*public void generate() {
     	File directory = new File("D:\\SnapshotsTaken");
     	FilenameFilter filter = new FilenameFilter() {
 
@@ -191,6 +189,9 @@ public class CaptureFrame extends JFrame {
     	
     	}
     	
+    	LBPHFaceRecognizer lbph = LBPHFaceRecognizer.create();
+    	lbph.train(photos, labels);
+    	lbph.save("D:\\SnapshotsTaken\\Sample\\classifierLBPH.yml");*/
     }
 
     /**
@@ -233,7 +234,7 @@ public class CaptureFrame extends JFrame {
 			mPerson.setUsername(usernameField.getText());
 			mPerson.setEmail(mailField.getText());
 			mPerson.setDateOfBirth(dateOfBirthField.getText());
-			mPerson.setAddress(addressField.getText());
+			mPerson.setAddress(addressField);
 			
 			cPerson.insert(mPerson);
     }
