@@ -130,7 +130,7 @@ public class MainMenuFrame implements ActionListener{
 					}
 				}
 			}.start();
-		} else if(e.getSource()== btnNewButton_1) {
+		} else if(e.getSource()== btnNewButton_1) { 
 			new Thread() {
 				public void run() {
 					try {

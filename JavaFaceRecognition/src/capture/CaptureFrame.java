@@ -73,7 +73,7 @@ public class CaptureFrame extends JFrame {
 	//JavaCV
 	VideoCapture webSource = null;
 	Mat cameraImage = new Mat();
-	CascadeClassifier cascade = new CascadeClassifier("");
+	CascadeClassifier cascade = new CascadeClassifier("D:\\SnapshotsTaken\\haarcascade_frontalface_alt.xml");
 	BytePointer mem = new BytePointer();
 	RectVector detectedFaces = new RectVector();
 	
@@ -108,25 +108,16 @@ public class CaptureFrame extends JFrame {
                             cascade.detectMultiScale(imageColor, detectedFaces, 1.1, 1, 1, new org.bytedeco.opencv.opencv_core.Size(150, 150),new  org.bytedeco.opencv.opencv_core.Size(500, 500));
 
                             for (int i = 0; i < detectedFaces.size(); i++) { //cate fete detecteaza
-                                Rect dadosFace = detectedFaces.get(0);
+                                Rect faceData = detectedFaces.get(0);
 
-                                rectangle(imageColor, dadosFace, new Scalar(255, 255, 0, 2), 3, 0, 0);
+                                rectangle(imageColor, faceData, new Scalar(255, 255, 0, 2), 3, 0, 0); 
 
-                                Mat face = new Mat(imageGray, dadosFace);
+                                Mat face = new Mat(imageGray, faceData);
                                 opencv_imgproc.resize(face, face, new org.bytedeco.opencv.opencv_core.Size(160, 160));
 
                                 if (captureButton.getModel().isPressed()) { //when save button is pressed
-                                    if (txt_first_name.getText().equals("") || txt_first_name.getText().equals(" ")) {
-                                        JOptionPane.showMessageDialog(null, "Campo vazio");
-                                    } else if (txt_first_name.getText().equals("") || txt_first_name.getText().equals(" ")) {
-                                        JOptionPane.showMessageDialog(null, "Campo vazio");
-                                    } else if (txt_last_name.getText().equals("") || txt_last_name.getText().equals(" ")) {
-                                        JOptionPane.showMessageDialog(null, "Campo vazio");
-                                    } else if (txt_office.getText().equals("") || txt_office.getText().equals(" ")) {
-                                        JOptionPane.showMessageDialog(null, "Campo vazio");
-                                    } else {
-                                        if (sample <= numSamples) {                                     
-                                            String cropped = "C:\\photos\\person." + txt_id_label.getText() + "." + sample + ".jpg";
+                                	if (sample <= numSamples) {                                     
+                                            String cropped = "C:\\SnapshotsTaken\\Sample." + "." + sample + ".jpg";
                                             imwrite(cropped, face);
 
                                             //System.out.println("Foto " + sample + " capture\n");
@@ -134,14 +125,14 @@ public class CaptureFrame extends JFrame {
                                             sample++;
                                         }
                                         if (sample > 25) {
-                                            new TrainLBPH().trainPhotos();//cand sunt 25 se termina
+                                            generate();//cand sunt 25 se termina
                                             insertDatabase(); //insert database
 
                                             System.out.println("File Generated");
                                             stopCamera(); 
                                         }
 
-                                    }
+                                    
                                 }
                             }
 
@@ -151,7 +142,7 @@ public class CaptureFrame extends JFrame {
                             try {
                                 if (g.drawImage(buff, 0, 0, 360, 390, 0, 0, buff.getWidth(), buff.getHeight(), null)) {
                                     if (runnable == false) {
-                                        System.out.println("Salve a Foto");
+                                        System.out.println("Save a photo");
                                         this.wait();
                                     }
                                 }
@@ -182,7 +173,7 @@ public class CaptureFrame extends JFrame {
     	MatVector photos = new MatVector();
     	Mat labels = new Mat(files.length, 1, CvType.CV_32SC1);
     	IntBuffer labelsBuffer = labels.createBuffer();
-        
+         
     	int counter = 0;
     	for(File image : files) {
     		Mat photo = imread(image.getAbsolutePath(), COLOR_BGRA2GRAY);
@@ -267,6 +258,10 @@ public class CaptureFrame extends JFrame {
 	 * Create the application.
 	 * @throws IOException 
 	 */
+	public CaptureFrame() {
+		
+	}
+	
 	public CaptureFrame(String username, String mail , String dateOfBirth, String addressField) throws IOException {
 		initialize();
 		
@@ -278,14 +273,6 @@ public class CaptureFrame extends JFrame {
 		startCamera();
 	}
 
-	public CaptureFrame() {
-
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 * @throws IOException 
-	 */
 	private void initialize() throws IOException {
 		setFrame(new JFrame());
 		getFrame().setResizable(false);
