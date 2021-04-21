@@ -37,8 +37,6 @@ public class RegisterPerson extends JFrame implements ActionListener{
 	private ImageIcon image;
 	Button signUp;
 	ConDatabase connect = new ConDatabase();
-	ModelPerson mPerson ;
-	ControlPerson cPerson;
 	
 	/**
 	 * Launch the application.
@@ -199,17 +197,6 @@ public class RegisterPerson extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==signUp) {
-			mPerson = new ModelPerson();
-			cPerson = new ControlPerson();
-			
-			mPerson.setUsername(usernameField.getText());
-			mPerson.setEmail(mailField.getText());
-			mPerson.setDateOfBirth(dateOfBirthField.getText());
-			mPerson.setAddress(addressField.getText());
-			
-			cPerson.insert(mPerson);
-		}
 		
 	}
 

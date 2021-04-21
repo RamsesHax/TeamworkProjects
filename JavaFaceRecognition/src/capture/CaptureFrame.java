@@ -20,11 +20,11 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.sql.SQLException;
-import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import org.bytedeco.javacpp.BytePointer;
 import static org.bytedeco.opencv.global.opencv_imgcodecs.imencode;
 import static org.bytedeco.opencv.global.opencv_imgcodecs.imwrite;
+import static org.bytedeco.opencv.global.opencv_imgcodecs.imread;
 import org.bytedeco.opencv.global.opencv_imgproc;
 import static org.bytedeco.opencv.global.opencv_imgproc.COLOR_BGRA2GRAY;
 import static org.bytedeco.opencv.global.opencv_imgproc.cvtColor;
@@ -34,7 +34,6 @@ import org.bytedeco.opencv.opencv_core.MatVector;
 import org.bytedeco.opencv.opencv_core.Rect;
 import org.bytedeco.opencv.opencv_core.RectVector;
 import org.bytedeco.opencv.opencv_core.Scalar;
-import org.bytedeco.opencv.opencv_core.Size;
 import org.bytedeco.opencv.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.opencv.opencv_videoio.VideoCapture;
 import org.opencv.core.CvType;
@@ -42,7 +41,8 @@ import org.opencv.highgui.HighGui;
 import org.opencv.imgcodecs.Imgcodecs;
 
 import databaseMain.ConDatabase;
-
+import databaseMain.ControlPerson;
+import databaseMain.ModelPerson;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -109,7 +109,7 @@ public class CaptureFrame extends JFrame {
                                 Mat face = new Mat(imageGray, dadosFace);
                                 opencv_imgproc.resize(face, face, new Size(160, 160));
 
-                                if (saveButton.getModel().isPressed()) { //when save button is pressed
+                                if (captureButton.getModel().isPressed()) { //when save button is pressed
                                     if (txt_first_name.getText().equals("") || txt_first_name.getText().equals(" ")) {
                                         JOptionPane.showMessageDialog(null, "Campo vazio");
                                     } else if (txt_first_name.getText().equals("") || txt_first_name.getText().equals(" ")) {
@@ -177,10 +177,10 @@ public class CaptureFrame extends JFrame {
     	MatVector photos = new MatVector();
     	Mat labels = new Mat(files.length, 1, CvType.CV_32SC1);
     	IntBuffer labelsBuffer = labels.createBuffer();
-    	
+        
     	int counter = 0;
     	for(File image : files) {
-    	Mat photo = Imgcodecs.imread(image.getAbsolutePath(), Imgcodecs.IMREAD_GRAYSCALE);//problema cu importul la imread simplu respectiv GRAYSCALE
+    	Mat photo = imread(image.getAbsolutePath(), COLOR_BGRA2GRAY);//problema cu importul la imread simplu respectiv GRAYSCALE
     	int idPerson = Integer.parseInt(image.getName().split("\\.")[1]);
     	opencv_imgproc.resize(photo, photo, new Size(160,160));
     	
@@ -211,8 +211,7 @@ public class CaptureFrame extends JFrame {
             @Override
             public void run() {
                 webSource = new VideoCapture(0);
-
-                myThread = new RegisterFace.DaemonThread(); // vom avea nevoie de o clasa RegisterFace
+                myThread = new CaptureFrame.DaemonThread(); // vom avea nevoie de o clasa RegisterFace
                 Thread t = new Thread(myThread);
                 t.setDaemon(true);
                 myThread.runnable = true;
@@ -224,6 +223,18 @@ public class CaptureFrame extends JFrame {
     
     public void insertDatabase() {
     	
+    		ModelPerson mPerson ;
+    		ControlPerson cPerson;
+    	
+			mPerson = new ModelPerson();
+			cPerson = new ControlPerson();
+			
+			mPerson.setUsername(usernameField.getText());
+			mPerson.setEmail(mailField.getText());
+			mPerson.setDateOfBirth(dateOfBirthField.getText());
+			mPerson.setAddress(addressField.getText());
+			
+			cPerson.insert(mPerson);
     }
 
 
