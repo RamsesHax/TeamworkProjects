@@ -197,7 +197,9 @@ public class RegisterPerson extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		if(e.getSource()==signUp) {
+			
+		}
 	}
 
 	public JFrame getFrame() {

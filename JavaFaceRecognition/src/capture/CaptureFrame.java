@@ -34,6 +34,8 @@ import org.bytedeco.opencv.opencv_core.MatVector;
 import org.bytedeco.opencv.opencv_core.Rect;
 import org.bytedeco.opencv.opencv_core.RectVector;
 import org.bytedeco.opencv.opencv_core.Scalar;
+import org.bytedeco.opencv.opencv_face.FaceRecognizer;
+import org.bytedeco.opencv.opencv_face.LBPHFaceRecognizer;
 import org.bytedeco.opencv.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.opencv.opencv_videoio.VideoCapture;
 import org.opencv.core.CvType;
@@ -53,6 +55,10 @@ import java.nio.IntBuffer;
 import java.awt.event.ActionEvent;
 
 public class CaptureFrame extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long total;
 	private JFrame frame;
 	private CaptureFrame.DaemonThread myThread = null;
@@ -72,7 +78,7 @@ public class CaptureFrame extends JFrame {
 	RectVector detectedFaces = new RectVector();
 	
 	//Vars
-	String root;
+	String root , usernamePerson, mailPerson, dateOfBirthPerson, addressPerson;
 	int numSamples = 25, sample = 1;
 	
 	//Utils
@@ -167,7 +173,6 @@ public class CaptureFrame extends JFrame {
 
 			@Override
 			public boolean accept(File dir, String name) {
-				// TODO Auto-generated method stub
 				return name.endsWith(".jpg") || name.endsWith(".png");
 			}
     		
@@ -180,17 +185,19 @@ public class CaptureFrame extends JFrame {
         
     	int counter = 0;
     	for(File image : files) {
-    	Mat photo = imread(image.getAbsolutePath(), COLOR_BGRA2GRAY);//problema cu importul la imread simplu respectiv GRAYSCALE
-    	int idPerson = Integer.parseInt(image.getName().split("\\.")[1]);
-    	org.bytedeco.opencv.opencv_core.Size a = new org.bytedeco.opencv.opencv_core.Size(160,160);
-    	opencv_imgproc.resize(photo, photo, a);
+    		Mat photo = imread(image.getAbsolutePath(), COLOR_BGRA2GRAY);
+    		int idPerson = Integer.parseInt(image.getName().split("\\.")[1]);
+    		org.bytedeco.opencv.opencv_core.Size a = new org.bytedeco.opencv.opencv_core.Size(160,160);
+    		opencv_imgproc.resize(photo, photo, a);
     	
-    	photos.put(counter,photo);
-    	labelsBuffer.put(counter, idPerson);
-    	counter++;
+    		photos.put(counter,photo);
+    		labelsBuffer.put(counter, idPerson);
+    		counter++;
     	
     	}
-    	
+    	FaceRecognizer lbph = LBPHFaceRecognizer.create();
+    	lbph.train(photos, labels);
+    	lbph.save("D:\\SnapshotsTaken\\classifierLBPH.yml");
     }
 
     /**
@@ -230,10 +237,10 @@ public class CaptureFrame extends JFrame {
 			mPerson = new ModelPerson();
 			cPerson = new ControlPerson();
 			
-			mPerson.setUsername(usernameField.getText());
-			mPerson.setEmail(mailField.getText());
-			mPerson.setDateOfBirth(dateOfBirthField.getText());
-			mPerson.setAddress(addressField.getText());
+			mPerson.setUsername(usernamePerson); 
+			mPerson.setEmail(mailPerson);
+			mPerson.setDateOfBirth(dateOfBirthPerson);
+			mPerson.setAddress(addressPerson);
 			
 			cPerson.insert(mPerson);
     }
@@ -260,8 +267,19 @@ public class CaptureFrame extends JFrame {
 	 * Create the application.
 	 * @throws IOException 
 	 */
-	public CaptureFrame() throws IOException {
+	public CaptureFrame(String username, String mail , String dateOfBirth, String addressField) throws IOException {
 		initialize();
+		
+		usernamePerson = username;
+		mailPerson = mail;
+		dateOfBirthPerson = dateOfBirth;
+		addressPerson = addressField;
+		
+		startCamera();
+	}
+
+	public CaptureFrame() {
+
 	}
 
 	/**
