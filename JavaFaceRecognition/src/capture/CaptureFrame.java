@@ -2,25 +2,17 @@ package capture;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JTextField;
 
-import org.opencv.imgproc.Imgproc;
-import org.opencv.core.Point;
-import org.opencv.core.Size;
-import org.opencv.highgui.*;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FilenameFilter;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
 import org.bytedeco.javacpp.BytePointer;
 import static org.bytedeco.opencv.global.opencv_imgcodecs.imencode;
 import static org.bytedeco.opencv.global.opencv_imgcodecs.imwrite;
@@ -39,8 +31,6 @@ import org.bytedeco.opencv.opencv_face.LBPHFaceRecognizer;
 import org.bytedeco.opencv.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.opencv.opencv_videoio.VideoCapture;
 import org.opencv.core.CvType;
-import org.opencv.highgui.HighGui;
-import org.opencv.imgcodecs.Imgcodecs;
 
 import databaseMain.ConDatabase;
 import databaseMain.ControlPerson;
@@ -88,7 +78,8 @@ public class CaptureFrame extends JFrame {
 
         protected volatile boolean runnable = false;
         
-        @Override
+        @SuppressWarnings("resource")
+		@Override
         public void run() {
             synchronized (this) {
                 while (runnable) {
@@ -102,7 +93,7 @@ public class CaptureFrame extends JFrame {
 
                             Mat imageGray = new Mat(); 
                             cvtColor(imageColor, imageGray, COLOR_BGRA2GRAY);
-//                            flip(cameraImage, cameraImage, +1);
+                           // flip(cameraImage, cameraImage, +1);
 
                             RectVector detectedFaces = new RectVector(); //face detection
                             cascade.detectMultiScale(imageColor, detectedFaces, 1.1, 1, 1, new org.bytedeco.opencv.opencv_core.Size(150, 150),new  org.bytedeco.opencv.opencv_core.Size(500, 500));
@@ -240,19 +231,7 @@ public class CaptureFrame extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CaptureFrame window = new CaptureFrame();
-					window.setUndecorated(isDefaultLookAndFeelDecorated());
-					window.getFrame().setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the application.
@@ -331,7 +310,7 @@ public class CaptureFrame extends JFrame {
 		panel.add(bgdLabel);
 
 		
-		
+		getFrame().setVisible(true);
 	}
 
 	public JFrame getFrame() {

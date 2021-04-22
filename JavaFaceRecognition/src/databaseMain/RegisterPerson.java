@@ -5,10 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -22,16 +20,17 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 
 import javax.swing.JCheckBox;
-import javax.swing.SwingConstants;
 
 import capture.CaptureFrame;
 
 import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
-import java.awt.FlowLayout;
 
 public class RegisterPerson extends JFrame implements ActionListener{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	private JTextField usernameField;
 	private JTextField mailField;
@@ -209,7 +208,6 @@ public class RegisterPerson extends JFrame implements ActionListener{
 	try {
 		new CaptureFrame(u,m,d,a).setVisible(true);
 	} catch (IOException e1) {
-		// TODO Auto-generated catch block
 		e1.printStackTrace();
 	}
 		}

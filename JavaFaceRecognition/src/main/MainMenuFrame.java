@@ -14,7 +14,6 @@ import capture.CaptureFrame;
 import databaseMain.RegisterPerson;
 
 import javax.swing.ImageIcon;
-import java.awt.Button;
 import javax.swing.JButton;
 import java.awt.Component;
 

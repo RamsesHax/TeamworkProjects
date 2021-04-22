@@ -6,55 +6,19 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="src/JavaCVresources/ffmpeg.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/JavaCVresources/ffmpeg-platform.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/JavaCVresources/ffmpeg-windows-x86_64.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/JavaCVresources/javacpp.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/JavaCVresources/javacv.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/JavaCVresources/javacv-platform.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/JavaCVresources/opencv.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/JavaCVresources/opencv-platform.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/JavaCVresources/opencv-windows-x86_64.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="src/DatabaseResources/mysql-connector-java-8.0.23.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="D:/Rares/JAVA/TeamworkProjects/JavaFaceRecognition/lib/ffmpeg.jar"/>
+	<classpathentry kind="lib" path="D:/Rares/JAVA/TeamworkProjects/JavaFaceRecognition/lib/ffmpeg-platform.jar"/>
+	<classpathentry kind="lib" path="D:/Rares/JAVA/TeamworkProjects/JavaFaceRecognition/lib/ffmpeg-windows-x86_64.jar"/>
+	<classpathentry kind="lib" path="D:/Rares/JAVA/TeamworkProjects/JavaFaceRecognition/lib/javacpp.jar"/>
+	<classpathentry kind="lib" path="D:/Rares/JAVA/TeamworkProjects/JavaFaceRecognition/lib/javacv.jar"/>
+	<classpathentry kind="lib" path="D:/Rares/JAVA/TeamworkProjects/JavaFaceRecognition/lib/javacv-1.5.5.jar"/>
+	<classpathentry kind="lib" path="D:/Rares/JAVA/TeamworkProjects/JavaFaceRecognition/lib/javacv-platform.jar"/>
+	<classpathentry kind="lib" path="D:/Rares/JAVA/TeamworkProjects/JavaFaceRecognition/lib/mysql-connector-java-8.0.23.jar"/>
+	<classpathentry kind="lib" path="D:/Rares/JAVA/TeamworkProjects/JavaFaceRecognition/lib/openblas.jar"/>
+	<classpathentry kind="lib" path="D:/Rares/JAVA/TeamworkProjects/JavaFaceRecognition/lib/openblas-platform.jar"/>
+	<classpathentry kind="lib" path="D:/Rares/JAVA/TeamworkProjects/JavaFaceRecognition/lib/openblas-windows-x86_64.jar"/>
+	<classpathentry kind="lib" path="D:/Rares/JAVA/TeamworkProjects/JavaFaceRecognition/lib/opencv.jar"/>
+	<classpathentry kind="lib" path="D:/Rares/JAVA/TeamworkProjects/JavaFaceRecognition/lib/opencv-platform.jar"/>
+	<classpathentry kind="lib" path="D:/Rares/JAVA/TeamworkProjects/JavaFaceRecognition/lib/opencv-windows-x86_64.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -9,6 +9,7 @@ import static org.bytedeco.opencv.global.opencv_imgproc.COLOR_BGRA2GRAY;
 import org.bytedeco.opencv.opencv_core.Mat;
 import org.bytedeco.opencv.opencv_core.MatVector;
 import org.bytedeco.opencv.opencv_core.Size;
+import org.bytedeco.opencv.opencv_face.FaceRecognizer;
 import org.bytedeco.opencv.opencv_face.LBPHFaceRecognizer;
 
 
@@ -33,7 +34,7 @@ public class TrainLBPH {
             counter++;
         }
 
-        LBPHFaceRecognizer lbph = LBPHFaceRecognizer.create(1, 8, 8, 8, 12);
+        FaceRecognizer lbph = LBPHFaceRecognizer.create(1, 8, 8, 8, 12);
         lbph.train(photos, labels);
         lbph.save("D:\\SnapshotsTaken\\Sample\\classifierLBPH.yml");
     }
