@@ -36,6 +36,8 @@ public class TrainLBPH {
 
         FaceRecognizer lbph = LBPHFaceRecognizer.create(1, 8, 8, 8, 12);
         lbph.train(photos, labels);
-        lbph.save("D:\\SnapshotsTaken\\Sample\\classifierLBPH.yml");
+        lbph.save("D:\\SnapshotsTaken\\classifierLBPH.yml");
     }
 }
+// [ WARN:1] global modules\videoio\src\cap_msmf.cpp (434) `anonymous-namespace'::SourceReaderCB::~SourceReaderCB terminating async callback
+// warning related to webcam
