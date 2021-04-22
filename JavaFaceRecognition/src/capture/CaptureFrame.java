@@ -56,7 +56,6 @@ public class CaptureFrame extends JFrame {
 	private JLabel counterLabel;
 	private JPanel panel;
 	private JButton captureButton;
-	private JLabel topTextLabel;
 	private JLabel bgdLabel;
 	private ImageIcon image;
 	
@@ -116,7 +115,7 @@ public class CaptureFrame extends JFrame {
                                             sample++;
                                         }
                                         if (sample > 25) {
-                                            generate();//cand sunt 25 se termina
+                                            new TrainLBPH();
                                             insertDatabase(); //insert database
 
                                             System.out.println("File Generated");
@@ -149,39 +148,7 @@ public class CaptureFrame extends JFrame {
         }
     }
 
-    public void generate() {
-    	File directory = new File("D:\\SnapshotsTaken");
-    	FilenameFilter filter = new FilenameFilter() {
-
-			@Override
-			public boolean accept(File dir, String name) {
-				return name.endsWith(".jpg") || name.endsWith(".png");
-			}
-    		
-    	};
-    	
-    	File[] files = directory.listFiles(filter); // only our filter
-    	MatVector photos = new MatVector();
-    	Mat labels = new Mat(files.length, 1, CvType.CV_32SC1);
-    	IntBuffer labelsBuffer = labels.createBuffer();
-         
-    	int counter = 0;
-    	for(File image : files) {
-    		Mat photo = imread(image.getAbsolutePath(), COLOR_BGRA2GRAY);
-    		int idPerson = Integer.parseInt(image.getName().split("\\.")[1]);
-    		org.bytedeco.opencv.opencv_core.Size a = new org.bytedeco.opencv.opencv_core.Size(160,160);
-    		opencv_imgproc.resize(photo, photo, a);
-    	
-    		photos.put(counter,photo);
-    		labelsBuffer.put(counter, idPerson);
-    		counter++;
-    	
-    	}
-    	FaceRecognizer lbph = LBPHFaceRecognizer.create();
-    	lbph.train(photos, labels);
-    	lbph.save("D:\\SnapshotsTaken\\classifierLBPH.yml");
-    }
-
+    
     /**
      * This method turns off the software connection with your web cam.
      */
@@ -260,15 +227,14 @@ public class CaptureFrame extends JFrame {
 		
 				
 		cameraLabel = new JLabel("");
-		cameraLabel.setBounds(67, 73, 271, 287);
+		cameraLabel.setBounds(71, 85, 271, 287);
 		getFrame().getContentPane().add(cameraLabel);
 		
 		counterLabel = new JLabel("00");
 		counterLabel.setHorizontalAlignment(JLabel.CENTER);
 		counterLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		counterLabel.setForeground(Color.WHITE);
-		counterLabel.setBorder(BorderFactory.createBevelBorder(1));
-		counterLabel.setBounds(173, 420, 63, 25);
+		counterLabel.setBounds(175, 405, 63, 25);
 		getFrame().getContentPane().add(counterLabel);
 		
 		panel = new JPanel();
@@ -292,20 +258,13 @@ public class CaptureFrame extends JFrame {
 			}
 		});
 
-		
-		topTextLabel = new JLabel("CAPTURE 25 SNAPSHOTS");
-		topTextLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 21));
-		topTextLabel.setForeground(Color.WHITE);
-		topTextLabel.setBounds(64, 11, 276, 57);
-		topTextLabel.setBorder(BorderFactory.createLineBorder(new Color(29, 192, 242)));
-		panel.add(topTextLabel);
 
 		
 		
 		bgdLabel = new JLabel("");
 		image = new ImageIcon();
 		bgdLabel.setIcon(image);
-		image.setImage(ImageIO.read(getClass().getResource("/img/bgdcapture.jpg"))); 
+		image.setImage(ImageIO.read(getClass().getResource("/img/capturebgd.jpg"))); 
 		bgdLabel.setBounds(0, 0, 406, 521);
 		panel.add(bgdLabel);
 
