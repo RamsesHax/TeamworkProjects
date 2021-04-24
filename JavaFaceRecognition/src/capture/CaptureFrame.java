@@ -17,6 +17,8 @@ import org.bytedeco.javacpp.BytePointer;
 import static org.bytedeco.opencv.global.opencv_imgcodecs.imencode;
 import static org.bytedeco.opencv.global.opencv_imgcodecs.imwrite;
 import static org.bytedeco.opencv.global.opencv_imgcodecs.imread;
+
+import org.bytedeco.opencv.global.opencv_core;
 import org.bytedeco.opencv.global.opencv_imgproc;
 import static org.bytedeco.opencv.global.opencv_imgproc.COLOR_BGRA2GRAY;
 import static org.bytedeco.opencv.global.opencv_imgproc.cvtColor;
@@ -93,7 +95,7 @@ public class CaptureFrame extends JFrame {
 
                             Mat imageGray = new Mat(); 
                             cvtColor(imageColor, imageGray, COLOR_BGRA2GRAY);
-                           // flip(cameraImage, cameraImage, +1);
+                            opencv_core.flip(cameraImage, cameraImage, +1);
 
                             RectVector detectedFaces = new RectVector(); //face detection
                             cascade.detectMultiScale(imageColor, detectedFaces, 1.1, 1, 1, new org.bytedeco.opencv.opencv_core.Size(150, 150),new  org.bytedeco.opencv.opencv_core.Size(500, 500));
@@ -255,30 +257,34 @@ public class CaptureFrame extends JFrame {
 	private void initialize() throws IOException {
 		setFrame(new JFrame());
 		getFrame().setResizable(false);
-		getFrame().setBounds(100, 100, 412, 550);
+		getFrame().setBounds(100, 100, 823, 330);
 		getFrame().getContentPane().setLayout(null);
 		
-				
+		JLabel bkgCameraLabel = new JLabel();
+		bkgCameraLabel.setBounds(0 , 0 , 380 , 300);
+		bkgCameraLabel.setBackground(new Color(5,20,31));
+		bkgCameraLabel.setOpaque(true);
+		getFrame().getContentPane().add(bkgCameraLabel);
+		
 		cameraLabel = new JLabel("");
-		cameraLabel.setBounds(67, 73, 271, 287);
+		cameraLabel.setBounds(15, 17, 350, 260);
 		getFrame().getContentPane().add(cameraLabel);
 		
 		counterLabel = new JLabel("00");
 		counterLabel.setHorizontalAlignment(JLabel.CENTER);
 		counterLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		counterLabel.setForeground(Color.WHITE);
-		counterLabel.setBorder(BorderFactory.createBevelBorder(1));
-		counterLabel.setBounds(173, 420, 63, 25);
+		counterLabel.setBounds(436, 150, 200, 100);
 		getFrame().getContentPane().add(counterLabel);
 		
 		panel = new JPanel();
-		panel.setBounds(0, 0, 434, 511);
+		panel.setBounds(0, 0, 823, 300);
 		getFrame().getContentPane().add(panel);
 		panel.setLayout(null);
 		
 			
 		captureButton = new JButton("CAPTURE");
-		captureButton.setBounds(161, 456, 89, 23);
+		captureButton.setBounds(478, 100, 120, 45);
 		captureButton.setFocusable(false);
 		captureButton.setBorder(BorderFactory.createLineBorder(new Color(29, 192, 242)));
 		captureButton.setBackground(new Color(7, 56, 71));
@@ -296,8 +302,7 @@ public class CaptureFrame extends JFrame {
 		topTextLabel = new JLabel("CAPTURE 25 SNAPSHOTS");
 		topTextLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 21));
 		topTextLabel.setForeground(Color.WHITE);
-		topTextLabel.setBounds(64, 11, 276, 57);
-		topTextLabel.setBorder(BorderFactory.createLineBorder(new Color(29, 192, 242)));
+		topTextLabel.setBounds(400, 11, 276, 60);
 		panel.add(topTextLabel);
 
 		
@@ -305,8 +310,8 @@ public class CaptureFrame extends JFrame {
 		bgdLabel = new JLabel("");
 		image = new ImageIcon();
 		bgdLabel.setIcon(image);
-		image.setImage(ImageIO.read(getClass().getResource("/img/bgdcapture.jpg"))); 
-		bgdLabel.setBounds(0, 0, 406, 521);
+		image.setImage(ImageIO.read(getClass().getResource("/img/CaptureFrame.jpg"))); 
+		bgdLabel.setBounds(0, 0, 823, 300);
 		panel.add(bgdLabel);
 
 		
