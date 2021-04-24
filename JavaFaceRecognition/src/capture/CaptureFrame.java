@@ -110,7 +110,7 @@ public class CaptureFrame extends JFrame {
 
                                 if (captureButton.getModel().isPressed()) { //when save button is pressed
                                 	if (sample <= numSamples) {                                     
-                                            String cropped = "C:\\SnapshotsTaken\\Sample." + "." + sample + ".jpg";
+                                            String cropped = "D:\\SnapshotsTaken\\"+ usernamePerson + "." + sample + ".jpg";
                                             imwrite(cropped, face);
 
                                             //System.out.println("Foto " + sample + " capture\n");
@@ -290,13 +290,6 @@ public class CaptureFrame extends JFrame {
 		captureButton.setBackground(new Color(7, 56, 71));
 		captureButton.setForeground(Color.WHITE);
 		panel.add(captureButton);
-		captureButton.addActionListener(new ActionListener() { //de fiecare data cand e apasat se incrementeaza nr de capturi
-			public void actionPerformed(ActionEvent e) {
-				total ++;
-				String counter = String.format("%02d", total); //converteste 1 in 01
-					  counterLabel.setText(""+counter);
-			}
-		});
 
 		
 		topTextLabel = new JLabel("CAPTURE 25 SNAPSHOTS");
