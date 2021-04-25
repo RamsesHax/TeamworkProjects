@@ -3,23 +3,12 @@ package databaseMain;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 public class ControlPerson {
 	ConDatabase connection = new ConDatabase();
 	
-	public class WarningFrame {  
-		JFrame warning;  
-		WarningFrame(){  
-		    warning = new JFrame();  
-		    JOptionPane.showMessageDialog(warning,"All the fields have to be valid","Warning",JOptionPane.WARNING_MESSAGE);     
-		}
-	}
-	
 	public void insert(ModelPerson person) {
 		try {
-			if(!person.getUsername().isBlank() || !person.getEmail().isBlank() || !person.getDateOfBirth().isBlank() || !person.getAddress().isBlank() || person.getEmail().contains("@gmail") || person.getEmail().contains("@email") ) {
+			
 			//isBlank metoda verifica daca este empty sau contine doar spatii
 			connection.connect();
 			PreparedStatement pst = connection.connection.prepareStatement("INSERT INTO accounts (id, user, email , date, address) values (?, ?, ?, ?, ?)");
@@ -32,9 +21,7 @@ public class ControlPerson {
 			System.out.println("Adaugat in baza de date : " + person.getUsername());
 			connection.disconnect();
 			
-			}else {
-				new WarningFrame();
-			}
+			
 		}catch(SQLException e) {
 			System.out.println("E :"+e);
 		}

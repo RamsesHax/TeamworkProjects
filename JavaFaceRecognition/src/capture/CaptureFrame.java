@@ -3,6 +3,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -239,12 +240,24 @@ public class CaptureFrame extends JFrame {
 	 * Create the application.
 	 * @throws IOException 
 	 */
+    public class WarningFrame {  
+		JFrame warning;  
+		WarningFrame(){  
+		    warning = new JFrame();  
+		    JOptionPane.showMessageDialog(warning,"All the fields have to be valid","Warning",JOptionPane.WARNING_MESSAGE);     
+		}
+	}
 	public CaptureFrame() {
 		
 	}
 	
 	public CaptureFrame(String username, String mail , String dateOfBirth, String addressField) throws IOException {
-		initialize();
+		if(!username.isBlank() || !mail.isBlank() || !dateOfBirth.isBlank() || !addressField.isBlank() || mail.contains("@gmail") || mail.contains("@email") ){
+			initialize();
+		}else {
+			new WarningFrame();
+		}
+		
 		
 		usernamePerson = username;
 		mailPerson = mail;
