@@ -135,7 +135,7 @@ public class CaptureFrame extends JFrame {
                             try {
                                 if (g.drawImage(buff, 0, 0, 360, 390, 0, 0, buff.getWidth(), buff.getHeight(), null)) {
                                     if (runnable == false) {
-                                        System.out.println("Save a photo");
+                                        System.out.println("All good!");
                                         this.wait();
                                     }
                                 }
@@ -163,7 +163,7 @@ public class CaptureFrame extends JFrame {
     	};
     	
     	File[] files = directory.listFiles(filter); // only our filter
-    	MatVector photos = new MatVector();
+    	MatVector photos = new MatVector(files.length);
     	Mat labels = new Mat(files.length, 1, CvType.CV_32SC1);
     	IntBuffer labelsBuffer = labels.createBuffer();
          
@@ -179,7 +179,7 @@ public class CaptureFrame extends JFrame {
     		counter++;
     	
     	}
-    	FaceRecognizer lbph = LBPHFaceRecognizer.create();
+    	FaceRecognizer lbph = LBPHFaceRecognizer.create(1, 8, 8, 8, 12);
     	lbph.train(photos, labels);
     	lbph.save("D:\\SnapshotsTaken\\classifierLBPH.yml");
     }
