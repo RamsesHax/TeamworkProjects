@@ -1,7 +1,5 @@
 package databaseMain;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JPanel;
@@ -40,24 +38,6 @@ public class RegisterPerson extends JFrame implements ActionListener{
 	private ImageIcon image;
 	Button signUp;
 	ConDatabase connect = new ConDatabase();
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RegisterPerson window = new RegisterPerson();
-					window.setUndecorated(isDefaultLookAndFeelDecorated());
-					window.getFrame().setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the application.
 	 * @throws IOException 
@@ -217,6 +197,7 @@ public class RegisterPerson extends JFrame implements ActionListener{
 				if(CaptureFrame.test) {
 					frame.dispose();
 					MainMenuFrame.getFrame().setEnabled(true);
+					break;
 				}
 			}catch(Exception e){
 				
