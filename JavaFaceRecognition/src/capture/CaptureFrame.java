@@ -38,6 +38,7 @@ import org.opencv.core.CvType;
 import databaseMain.ConDatabase;
 import databaseMain.ControlPerson;
 import databaseMain.ModelPerson;
+import databaseMain.RegisterPerson;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -180,7 +181,7 @@ public class CaptureFrame extends JFrame {
     		counter++;
     	
     	}
-    	FaceRecognizer lbph = LBPHFaceRecognizer.create(1, 8, 8, 8, 12);
+    	FaceRecognizer lbph = LBPHFaceRecognizer.create();
     	lbph.train(photos, labels);
     	lbph.save("D:\\SnapshotsTaken\\classifierLBPH.yml");
     }
@@ -191,7 +192,7 @@ public class CaptureFrame extends JFrame {
     public void stopCamera() {
         myThread.runnable = false;
         webSource.release();
-        dispose();
+        this.getFrame().dispose();
     }
 
     /**

@@ -31,7 +31,7 @@ public class RegisterPerson extends JFrame implements ActionListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JFrame frame;
+	JFrame frame;
 	private JTextField usernameField;
 	private JTextField mailField;
 	private JTextField dateOfBirthField;
