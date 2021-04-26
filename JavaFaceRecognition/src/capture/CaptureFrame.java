@@ -1,5 +1,4 @@
 package capture;
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -38,15 +37,12 @@ import org.opencv.core.CvType;
 import databaseMain.ConDatabase;
 import databaseMain.ControlPerson;
 import databaseMain.ModelPerson;
-import databaseMain.RegisterPerson;
 
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.IntBuffer;
-import java.awt.event.ActionEvent;
 
 public class CaptureFrame extends JFrame {
 	/**

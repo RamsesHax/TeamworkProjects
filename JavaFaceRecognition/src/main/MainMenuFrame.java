@@ -36,8 +36,8 @@ public class MainMenuFrame implements ActionListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainMenuFrame window = new MainMenuFrame();
-					window.frame.setVisible(true);
+					new MainMenuFrame();
+					MainMenuFrame.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
