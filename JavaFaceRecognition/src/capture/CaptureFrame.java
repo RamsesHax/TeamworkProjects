@@ -53,7 +53,6 @@ public class CaptureFrame extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private long total;
 	private JFrame frame;
 	private CaptureFrame.DaemonThread myThread = null;
 	private JLabel cameraLabel;
@@ -63,6 +62,8 @@ public class CaptureFrame extends JFrame {
 	private JLabel topTextLabel;
 	private JLabel bgdLabel;
 	private ImageIcon image;
+	
+	
 	
 	//JavaCV
 	VideoCapture webSource = null;
@@ -74,6 +75,7 @@ public class CaptureFrame extends JFrame {
 	//Vars
 	String root , usernamePerson, mailPerson, dateOfBirthPerson, addressPerson;
 	int numSamples = 25, sample = 1;
+	public static boolean test;
 	
 	//Utils
 	ConDatabase connected = new ConDatabase();
@@ -189,10 +191,12 @@ public class CaptureFrame extends JFrame {
     /**
      * This method turns off the software connection with your web cam.
      */
+    
     public void stopCamera() {
         myThread.runnable = false;
         webSource.release();
         this.getFrame().dispose();
+        test = false;
     }
 
     /**
@@ -201,6 +205,7 @@ public class CaptureFrame extends JFrame {
      * VideoCapture(0); is the default camera on your computer.
      */
     public void startCamera() {
+    	test = true;
         new Thread() {
             @Override
             public void run() {
@@ -323,6 +328,7 @@ public class CaptureFrame extends JFrame {
 
 		
 		getFrame().setVisible(true);
+		
 	}
 
 	public JFrame getFrame() {
@@ -332,4 +338,5 @@ public class CaptureFrame extends JFrame {
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
+	
 }

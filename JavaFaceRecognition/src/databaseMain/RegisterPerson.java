@@ -22,6 +22,7 @@ import java.awt.FontFormatException;
 import javax.swing.JCheckBox;
 
 import capture.CaptureFrame;
+import main.MainMenuFrame;
 
 import javax.imageio.ImageIO;
 
@@ -207,6 +208,22 @@ public class RegisterPerson extends JFrame implements ActionListener{
 
 	try {
 		new CaptureFrame(u,m,d,a).setVisible(true);
+		new Thread() {
+			public void run(){
+			while(true) {
+				
+			
+				try {
+				if(CaptureFrame.test) {
+					frame.dispose();
+					MainMenuFrame.getFrame().setEnabled(true);
+				}
+			}catch(Exception e){
+				
+			}
+			}
+		}
+		}.start();
 	} catch (IOException e1) {
 		e1.printStackTrace();
 	}

@@ -26,7 +26,7 @@ public class MainMenuFrame implements ActionListener{
 	JButton btnNewButton;
 	JButton btnNewButton_1;
 	JButton btnNewButton_2;
-	private JFrame frame;
+	private static JFrame frame;
 	boolean frameCheck = false;
 
 	/**
@@ -149,6 +149,12 @@ public class MainMenuFrame implements ActionListener{
 				}
 			}.start();
 		}
+		
+	}
+
+	public static JFrame getFrame() {
+		// TODO Auto-generated method stub
+		return frame;
 		
 	}
 	
