@@ -209,12 +209,14 @@ public class CaptureFrame extends JFrame {
         new Thread() {
             @Override
             public void run() {
-                webSource = new VideoCapture(0);
-                myThread = new CaptureFrame.DaemonThread(); // vom avea nevoie de o clasa RegisterFace
+            	
+            	webSource = new VideoCapture(0);
+                myThread = new CaptureFrame.DaemonThread(); 
                 Thread t = new Thread(myThread);
                 t.setDaemon(true);
                 myThread.runnable = true;
                 t.start();
+            	
             }
         }.start();
     }
@@ -258,10 +260,11 @@ public class CaptureFrame extends JFrame {
 	}
 	
 	public CaptureFrame(String username, String mail , String dateOfBirth, String addressField) throws IOException {
-		if(!username.isBlank() || !mail.isBlank() || !dateOfBirth.isBlank() || !addressField.isBlank() || mail.contains("@gmail") || mail.contains("@email") ){
-			initialize();
-		}else {
+		if(username.isBlank() || mail.isBlank() || dateOfBirth.isBlank() || addressField.isBlank() || !mail.contains("@")){
 			new WarningFrame();
+			stopCamera();
+		}else {
+			initialize();
 		}
 		
 		
