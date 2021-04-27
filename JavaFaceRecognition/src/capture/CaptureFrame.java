@@ -1,5 +1,6 @@
 package capture;
 import javax.swing.JFrame;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -284,7 +285,7 @@ public class CaptureFrame extends JFrame {
 		bkgCameraLabel.setOpaque(true);
 		getFrame().getContentPane().add(bkgCameraLabel);
 		
-		cameraLabel = new JLabel("");
+		cameraLabel = new JLabel();
 		cameraLabel.setBounds(15, 17, 350, 260);
 		getFrame().getContentPane().add(cameraLabel);
 		
