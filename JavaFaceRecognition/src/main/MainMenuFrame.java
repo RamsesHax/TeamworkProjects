@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import Recognizer.Recognizer;
 import capture.CaptureFrame;
 import databaseMain.RegisterPerson;
 
@@ -133,7 +134,7 @@ public class MainMenuFrame implements ActionListener{
 			new Thread() {
 				public void run() {
 					try {
-						CaptureFrame window = new CaptureFrame();
+						Recognizer window = new Recognizer();
 						window.getFrame().setVisible(true);
 								frame.setEnabled(false);
 								window.getFrame().addWindowListener(new WindowAdapter(){
