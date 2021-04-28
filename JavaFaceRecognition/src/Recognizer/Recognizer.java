@@ -8,12 +8,14 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.sql.Array;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingWorker;
 
 import org.bytedeco.javacpp.BytePointer;
 import org.bytedeco.javacpp.DoublePointer;
@@ -45,6 +47,10 @@ public class Recognizer extends JFrame {
 	JLabel bkgLabel;
 	ImageIcon bkgImage ;
 	JLabel cameraLabel;
+	JLabel usernameLabel;
+	JLabel mailLabel;
+	JLabel dateOfBirthLabel;
+	JLabel addressLabel;
 	
 	private Recognizer.DaemonThread myThread = null;
 	
@@ -74,12 +80,16 @@ public class Recognizer extends JFrame {
 		
 		cameraLabel = new JLabel("");
 		cameraLabel.setBounds(262,54,276,342);
-		cameraLabel.setBackground(Color.red);
-		cameraLabel.setOpaque(true);
 		
 		bkgPanel.add(cameraLabel);
 		getFrame().add(bkgPanel);
 		getFrame().setVisible(true);
+		
+		
+		recognizer.read("D:\\SnapshotsTaken\\classifierLBPH.yml");
+		recognizer.setThreshold(80);
+		
+		startCamera();
 	}
 	public JFrame getFrame() {
 		return frame;
@@ -107,9 +117,9 @@ public class Recognizer extends JFrame {
 							RectVector detectedFace = new RectVector();
 							cascade.detectMultiScale(imageGray, detectedFace, 1.1, 2, 0, new org.bytedeco.opencv.opencv_core.Size(150,150), new org.bytedeco.opencv.opencv_core.Size(500,500));
 							
-							for(int i = 0 ; i< detectedFaces.size(); i++) {
+							for(int i = 0 ; i< detectedFace.size(); i++) {
 								Rect faceData = detectedFace.get(i);
-								org.bytedeco.opencv.global.opencv_imgproc.rectangle(cameraImage, faceData, new Scalar(0,255,0,0));
+								org.bytedeco.opencv.global.opencv_imgproc.rectangle(cameraImage, faceData, new Scalar(0,255,0,3), 3, 0, 0);
 								Mat capturedFace = new Mat(imageGray, faceData);
 								opencv_imgproc.resize(capturedFace, capturedFace, new Size(160,160));
 								
@@ -117,10 +127,14 @@ public class Recognizer extends JFrame {
 								DoublePointer trust = new DoublePointer(1);
 								recognizer.predict(capturedFace, tag, trust);
 								int prediction = tag.get(0);
-								String name = null;
+								String name = usernamePerson;
 								
 								if(prediction == -1) {
+									org.bytedeco.opencv.global.opencv_imgproc.rectangle(cameraImage, faceData, new Scalar(0,255,0,3), 3, 0, 0);
+									usernameLabel.setText("Nimicinca");
+									
 								}else {
+									org.bytedeco.opencv.global.opencv_imgproc.rectangle(cameraImage, faceData, new Scalar(0,255,0,3), 3, 0, 0);
 									System.out.println(trust.get(0));
 									rec();
 								}
@@ -130,7 +144,7 @@ public class Recognizer extends JFrame {
 								
 								BufferedImage buff = (BufferedImage) im;
 								
-								if(g.drawImage(buff, 0, 0, getWidth(), getHeight() - 100, 0, 0, buff.getWidth(), buff.getHeight(), null)) {
+								if(g.drawImage(buff, 0, 0, 360, 390, 0, 0, buff.getWidth(), buff.getHeight(), null)) {
 									if(runnable == false) {
 										this.wait();
 									}
@@ -148,7 +162,66 @@ public class Recognizer extends JFrame {
 	}
 	
 	private void rec() {
-		
+		SwingWorker worker = new SwingWorker() {
+
+			@Override
+			protected Object doInBackground() throws Exception {
+				connected.connect();
+				try {
+					String SQL = "SELECT * FROM accounts WHERE email = " + mailPerson ;
+					connected.execSQL(SQL); 
+					while(connected.resultSet.next()) {
+						usernameLabel.setText(connected.resultSet.getString("user"));
+						mailLabel.setText(connected.resultSet.getString("email"));
+						dateOfBirthLabel.setText(connected.resultSet.getString("date"));
+						addressLabel.setText(connected.resultSet.getString("address"));
+						
+						System.out.println("Person: " + connected.resultSet.getString("user"));
+						
+						Array ident = connected.resultSet.getArray(2);
+						String[] person = (String[]) ident.getArray();
+						
+						for(int i = 0 ; i<person.length; i++) {
+							System.out.println(person[i]);
+						}
+						
+					}
+					
+				}catch(Exception e) {
+					
+				}
+				
+				connected.disconnect();
+				return null;
+			}
+		};
+		worker.execute();
 	}
 	
+    public void stopCamera() {
+        myThread.runnable = false;
+        webSource.release();
+        this.getFrame().dispose();
+    }
+
+    /**
+     * This method connects the software to the web cam.
+     * <br><br>
+     * VideoCapture(0); is the default camera on your computer.
+     */
+    public void startCamera() {
+        new Thread() {
+            @Override
+            public void run() {
+            	
+            	webSource = new VideoCapture(0);
+                myThread = new Recognizer.DaemonThread(); 
+                Thread t = new Thread(myThread);
+                t.setDaemon(true);
+                myThread.runnable = true;
+                t.start();
+            	
+            }
+        }.start();
+    }
 }

@@ -111,7 +111,7 @@ public class CaptureFrame extends JFrame {
 
                                 if (captureButton.getModel().isPressed()) { //when save button is pressed
                                 	if (sample <= numSamples) {                                     
-                                            String cropped = "D:\\SnapshotsTaken\\"+ usernamePerson + "." + sample + ".jpg";
+                                            String cropped = "D:\\SnapshotsTaken\\"+ mailPerson + "." + sample + ".jpg";
                                             imwrite(cropped, face);
 
                                             //System.out.println("Foto " + sample + " capture\n");
