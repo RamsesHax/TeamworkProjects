@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.Array;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,6 +31,8 @@ import org.bytedeco.opencv.opencv_face.LBPHFaceRecognizer;
 import org.bytedeco.opencv.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.opencv.opencv_videoio.VideoCapture;
 import static org.bytedeco.opencv.global.opencv_imgproc.COLOR_BGRA2GRAY;
+
+import org.bytedeco.opencv.global.opencv_core;
 import org.bytedeco.opencv.global.opencv_imgcodecs;
 
 import capture.CaptureFrame;
@@ -60,7 +63,7 @@ public class Recognizer extends JFrame {
 		CascadeClassifier cascade = new CascadeClassifier("D:\\SnapshotsTaken\\haarcascade_frontalface_alt.xml");
 		BytePointer mem = new BytePointer();
 		RectVector detectedFaces = new RectVector();
-		LBPHFaceRecognizer recognizer;
+		LBPHFaceRecognizer recognizer = LBPHFaceRecognizer.create();;
 		
 		//Vars
 		String root , usernamePerson, mailPerson, dateOfBirthPerson, addressPerson;
@@ -69,7 +72,7 @@ public class Recognizer extends JFrame {
 		//Utils
 		ConDatabase connected = new ConDatabase();
 	
-	public Recognizer() throws IOException {
+	public Recognizer() throws IOException, InterruptedException {
 		frame = new JFrame();
 		getFrame().setLayout(null);
 		getFrame().setBounds(250,250, 800, 480);
@@ -77,9 +80,19 @@ public class Recognizer extends JFrame {
 		bkgPanel = new ImagePanel();
 		bkgPanel.setBounds(0,0,800,480);
 		bkgPanel.setLayout(null);
-		
+
 		cameraLabel = new JLabel("");
 		cameraLabel.setBounds(262,54,276,342);
+		
+		
+				
+		usernameLabel = new JLabel("");
+		usernameLabel.setBounds(30, 115, 200, 35);
+		usernameLabel.setBackground(new Color(6,16,22));
+		usernameLabel.setBorder(BorderFactory.createEtchedBorder());
+		usernameLabel.setOpaque(true);
+		bkgPanel.add(usernameLabel);
+			        
 		
 		bkgPanel.add(cameraLabel);
 		getFrame().add(bkgPanel);
@@ -113,6 +126,7 @@ public class Recognizer extends JFrame {
 							
 							Mat imageGray = new Mat();
 							org.bytedeco.opencv.global.opencv_imgproc.cvtColor(cameraImage, imageGray, COLOR_BGRA2GRAY);
+							//opencv_core.flip(cameraImage, cameraImage, +1);
 							
 							RectVector detectedFace = new RectVector();
 							cascade.detectMultiScale(imageGray, detectedFace, 1.1, 2, 0, new org.bytedeco.opencv.opencv_core.Size(150,150), new org.bytedeco.opencv.opencv_core.Size(500,500));
@@ -131,7 +145,7 @@ public class Recognizer extends JFrame {
 								
 								if(prediction == -1) {
 									org.bytedeco.opencv.global.opencv_imgproc.rectangle(cameraImage, faceData, new Scalar(0,255,0,3), 3, 0, 0);
-									usernameLabel.setText("Nimicinca");
+									usernameLabel.setText("");
 									
 								}else {
 									org.bytedeco.opencv.global.opencv_imgproc.rectangle(cameraImage, faceData, new Scalar(0,255,0,3), 3, 0, 0);

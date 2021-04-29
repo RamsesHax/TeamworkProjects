@@ -96,10 +96,10 @@ public class CaptureFrame extends JFrame {
 
                             Mat imageGray = new Mat(); 
                             cvtColor(imageColor, imageGray, COLOR_BGRA2GRAY);
-                            opencv_core.flip(cameraImage, cameraImage, +1);
+                           // opencv_core.flip(cameraImage, cameraImage, +1);
 
                             RectVector detectedFaces = new RectVector(); //face detection
-                            cascade.detectMultiScale(imageColor, detectedFaces, 1.1, 1, 1, new org.bytedeco.opencv.opencv_core.Size(150, 150),new  org.bytedeco.opencv.opencv_core.Size(500, 500));
+                            cascade.detectMultiScale(imageColor, detectedFaces, 1.1, 2, 0, new org.bytedeco.opencv.opencv_core.Size(200, 200),new  org.bytedeco.opencv.opencv_core.Size(550, 555));
 
                             for (int i = 0; i < detectedFaces.size(); i++) { //cate fete detecteaza
                                 Rect faceData = detectedFaces.get(0);
@@ -107,7 +107,7 @@ public class CaptureFrame extends JFrame {
                                 rectangle(imageColor, faceData, new Scalar(255, 255, 0, 2), 3, 0, 0); 
 
                                 Mat face = new Mat(imageGray, faceData);
-                                opencv_imgproc.resize(face, face, new org.bytedeco.opencv.opencv_core.Size(160, 160));
+                                opencv_imgproc.resize(face, face, new org.bytedeco.opencv.opencv_core.Size(190, 190));
 
                                 if (captureButton.getModel().isPressed()) { //when save button is pressed
                                 	if (sample <= numSamples) {                                     
