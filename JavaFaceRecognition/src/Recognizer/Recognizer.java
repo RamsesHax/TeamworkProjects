@@ -1,5 +1,6 @@
 package Recognizer;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -16,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 
 import org.bytedeco.javacpp.BytePointer;
@@ -87,14 +89,37 @@ public class Recognizer extends JFrame {
 		
 		
 				
-		usernameLabel = new JLabel("");
-		usernameLabel.setBounds(30, 115, 200, 35);
-		usernameLabel.setBackground(new Color(6,16,22));
+		usernameLabel = new JLabel("", SwingConstants.CENTER);
+		usernameLabel.setBounds(30, 100, 200, 35);
+		usernameLabel.setBackground(new Color(6,28,38));
 		usernameLabel.setForeground(Color.white);
 		usernameLabel.setBorder(BorderFactory.createEtchedBorder());
 		usernameLabel.setOpaque(true);
 		bkgPanel.add(usernameLabel);
-			        
+		
+		mailLabel = new JLabel("", SwingConstants.CENTER);
+		mailLabel.setBounds(565, 100, 200, 35);
+		mailLabel.setBackground(new Color(6,28,38));
+		mailLabel.setForeground(Color.white);
+		mailLabel.setBorder(BorderFactory.createEtchedBorder());
+		mailLabel.setOpaque(true);
+		bkgPanel.add(mailLabel);	  
+		
+		dateOfBirthLabel = new JLabel("", SwingConstants.CENTER);
+		dateOfBirthLabel.setBounds(565, 315, 200, 35);
+		dateOfBirthLabel.setBackground(new Color(6,28,38));
+		dateOfBirthLabel.setForeground(Color.white);
+		dateOfBirthLabel.setBorder(BorderFactory.createEtchedBorder());
+		dateOfBirthLabel.setOpaque(true);
+		bkgPanel.add(dateOfBirthLabel);
+		
+		addressLabel = new JLabel("", SwingConstants.CENTER);
+		addressLabel.setBounds(30, 315, 200, 35);
+		addressLabel.setBackground(new Color(6,28,38));
+		addressLabel.setForeground(Color.white);
+		addressLabel.setBorder(BorderFactory.createEtchedBorder());
+		addressLabel.setOpaque(true);
+		bkgPanel.add(addressLabel);
 		
 		bkgPanel.add(cameraLabel);
 		getFrame().add(bkgPanel);
@@ -143,11 +168,13 @@ public class Recognizer extends JFrame {
 								DoublePointer trust = new DoublePointer(1);
 								recognizer.predict(capturedFace, tag, trust);
 								int prediction = tag.get(0);
-								String name = usernamePerson;
 								
 								if(prediction == -1) {
 									org.bytedeco.opencv.global.opencv_imgproc.rectangle(cameraImage, faceData, new Scalar(0,255,0,3), 3, 0, 0);
-									usernameLabel.setText("nedescoperit");
+									usernameLabel.setText("");
+									addressLabel.setText("");
+									dateOfBirthLabel.setText("");
+									mailLabel.setText("");
 									idPerson = 0 ;
 									
 								}else {
@@ -168,6 +195,10 @@ public class Recognizer extends JFrame {
 										this.wait();
 									}
 								}
+							}
+							
+							if(!getFrame().isActive()) {
+								stopCamera();
 							}
 						}
 					}catch(IOException | InterruptedException e) {
