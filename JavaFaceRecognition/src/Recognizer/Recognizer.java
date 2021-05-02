@@ -154,6 +154,7 @@ public class Recognizer extends JFrame {
 									org.bytedeco.opencv.global.opencv_imgproc.rectangle(cameraImage, faceData, new Scalar(0,255,0,3), 3, 0, 0);
 									System.out.println(trust.get(0));
 									idPerson = prediction;
+									System.out.println(idPerson);
 									rec();
 								}
 								

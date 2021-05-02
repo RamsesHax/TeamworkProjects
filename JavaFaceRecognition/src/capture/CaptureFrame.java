@@ -179,7 +179,7 @@ public class CaptureFrame extends JFrame {
     	int counter = 0;
     	for(File image : files) {
     		Mat photo = imread(image.getAbsolutePath(), COLOR_BGRA2GRAY);
-    		int idPerson = Integer.parseInt(image.getName().split("\\.")[1]);
+    		int idPerson = Integer.parseInt(image.getName().split("\\.")[0]);
     		org.bytedeco.opencv.opencv_core.Size a = new org.bytedeco.opencv.opencv_core.Size(160,160);
     		opencv_imgproc.resize(photo, photo, a);
     	
