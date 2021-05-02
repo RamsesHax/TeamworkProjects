@@ -68,6 +68,7 @@ public class Recognizer extends JFrame {
 		//Vars
 		String root , usernamePerson, mailPerson, dateOfBirthPerson, addressPerson;
 		int numSamples = 25, sample = 1;
+		int idPerson;
 		
 		//Utils
 		ConDatabase connected = new ConDatabase();
@@ -89,6 +90,7 @@ public class Recognizer extends JFrame {
 		usernameLabel = new JLabel("");
 		usernameLabel.setBounds(30, 115, 200, 35);
 		usernameLabel.setBackground(new Color(6,16,22));
+		usernameLabel.setForeground(Color.white);
 		usernameLabel.setBorder(BorderFactory.createEtchedBorder());
 		usernameLabel.setOpaque(true);
 		bkgPanel.add(usernameLabel);
@@ -145,11 +147,13 @@ public class Recognizer extends JFrame {
 								
 								if(prediction == -1) {
 									org.bytedeco.opencv.global.opencv_imgproc.rectangle(cameraImage, faceData, new Scalar(0,255,0,3), 3, 0, 0);
-									usernameLabel.setText("");
+									usernameLabel.setText("nedescoperit");
+									idPerson = 0 ;
 									
 								}else {
 									org.bytedeco.opencv.global.opencv_imgproc.rectangle(cameraImage, faceData, new Scalar(0,255,0,3), 3, 0, 0);
 									System.out.println(trust.get(0));
+									idPerson = prediction;
 									rec();
 								}
 								
@@ -182,7 +186,7 @@ public class Recognizer extends JFrame {
 			protected Object doInBackground() throws Exception {
 				connected.connect();
 				try {
-					String SQL = "SELECT * FROM accounts WHERE email = " + mailPerson ;
+					String SQL = "SELECT * FROM accounts WHERE ID = " + idPerson ;
 					connected.execSQL(SQL); 
 					while(connected.resultSet.next()) {
 						usernameLabel.setText(connected.resultSet.getString("user"));

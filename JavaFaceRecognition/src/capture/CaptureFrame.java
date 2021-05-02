@@ -44,6 +44,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.io.IOException;
 import java.nio.IntBuffer;
+import java.sql.SQLException;
 
 public class CaptureFrame extends JFrame {
 	/**
@@ -85,6 +86,13 @@ public class CaptureFrame extends JFrame {
 		@Override
         public void run() {
             synchronized (this) {
+            	int id = 0;
+            	 try {
+					id = getIdUser();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
                 while (runnable) {
                     try {
                         if (webSource.grab()) {
@@ -111,7 +119,7 @@ public class CaptureFrame extends JFrame {
 
                                 if (captureButton.getModel().isPressed()) { //when save button is pressed
                                 	if (sample <= numSamples) {                                     
-                                            String cropped = "D:\\SnapshotsTaken\\"+ mailPerson + "." + sample + ".jpg";
+                                            String cropped = "D:\\SnapshotsTaken\\"+ (id+1) + "." + sample + ".jpg";
                                             imwrite(cropped, face);
 
                                             //System.out.println("Foto " + sample + " capture\n");
@@ -329,6 +337,19 @@ public class CaptureFrame extends JFrame {
 		
 		getFrame().setVisible(true);
 		
+	}
+	
+	private int getIdUser() throws SQLException {
+		int id = 0;
+		connected.connect();
+		connected.execSQL("SELECT * FROM accounts ORDER BY ID DESC LIMIT 1");
+		try {
+			connected.resultSet.first();
+			id = connected.resultSet.getInt("ID");
+		}catch(NumberFormatException | SQLException e) {
+			
+		}
+		return id;
 	}
 
 	public JFrame getFrame() {
