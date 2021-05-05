@@ -59,7 +59,7 @@ public class MainMenuFrame implements ActionListener{
 	 * @throws IOException 
 	 */
 	private void initialize() throws IOException {
-		frame = new JFrame();
+		frame = new JFrame("FaceRecognition");
 		frame.setBounds(100, 100, 920, 530);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
