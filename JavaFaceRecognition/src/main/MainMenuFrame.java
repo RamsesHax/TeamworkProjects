@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import Recognizer.Recognizer;
 import capture.CaptureFrame;
 import databaseMain.RegisterPerson;
+import databaseMain.ShowData;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -98,6 +99,7 @@ public class MainMenuFrame implements ActionListener{
 		btnNewButton_2.setForeground(new Color(159,240,248));
 		btnNewButton_2.setFocusable(false);
 		btnNewButton_2.setBorder(BorderFactory.createLineBorder(new Color(1,68,98)));
+		btnNewButton_2.addActionListener(this);
 		frame.getContentPane().add(btnNewButton_2);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(20);
@@ -135,6 +137,25 @@ public class MainMenuFrame implements ActionListener{
 				public void run() {
 					try {
 						Recognizer window = new Recognizer();
+						window.getFrame().setVisible(true);
+								frame.setEnabled(false);
+								window.getFrame().addWindowListener(new WindowAdapter(){
+									public void windowClosing(WindowEvent e) {
+										if(e.getSource()==window.getFrame()) {
+											frame.setEnabled(true);
+										}
+									}
+								});
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}.start();
+		} else if(e.getSource()== btnNewButton_2) { 
+			new Thread() {
+				public void run() {
+					try {
+						ShowData window = new ShowData();
 						window.getFrame().setVisible(true);
 								frame.setEnabled(false);
 								window.getFrame().addWindowListener(new WindowAdapter(){
