@@ -4,8 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
@@ -43,20 +49,37 @@ public class ShowData extends JFrame {
 		textArea.setEditable(false);
 		textArea.setBackground(Color.RED);
 		
-		try {
-		      File myObj = new File("D:\\filename.txt"); // aici trebuie bagata baza de date
+		/*try {
+		      File myObj = new File("D:\\testareData.txt"); // aici trebuie bagata baza de date
 		      Scanner myReader = new Scanner(myObj);
 		      while (myReader.hasNextLine()) {
 		        String data = myReader.nextLine();
 		    	textArea.setText(data);
-		    	textArea.setOpaque(false);
 		      }
 		      myReader.close();
 		    } catch (FileNotFoundException e) {
 		      System.out.println("An error occurred.");
 		      e.printStackTrace();
-		    }
+		    }*/
+		
+			BufferedReader reader;
+			try {
+				reader = new BufferedReader(new FileReader("D:\\testareData.txt"));
+				String line = reader.readLine();
+				while (line != null) {
+					textArea.setText(line);
+					System.out.println(line); // Syso il ia bine la fel si mai sus dar problema e ca nu afiseaza decat ultima linie din text doc in fisier
+					line = reader.readLine();
+					
+				}
+				reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		
+		
 		textArea.setForeground(Color.WHITE);
+		textArea.setOpaque(false);
 		
 		scrollBar = new JScrollPane(textArea);
 		scrollBar.setSize(new Dimension(20, 390));
