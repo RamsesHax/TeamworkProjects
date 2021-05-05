@@ -158,6 +158,7 @@ public class MainMenuFrame implements ActionListener{
 			new Thread() {
 				public void run() {
 					try {
+						new WriteIntoFileFromDatabase();
 						ShowData window = new ShowData();
 						window.getFrame().setVisible(true);
 								frame.setEnabled(false);

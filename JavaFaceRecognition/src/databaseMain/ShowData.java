@@ -25,7 +25,7 @@ public class ShowData extends JFrame {
 	private JFrame frame;
 	private JPanel panel;
 	private JScrollPane scrollBar;
-	private JTextArea textArea;
+	static JTextArea textArea = new JTextArea();
 	
 	
 	public ShowData() {
@@ -42,7 +42,6 @@ public class ShowData extends JFrame {
 		panel.setBackground(Color.red);
 		panel.setLayout(new BorderLayout());
 		
-		textArea = new JTextArea();
 		textArea.setFont(new Font("Serif", Font.ITALIC, 16));
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
@@ -61,21 +60,6 @@ public class ShowData extends JFrame {
 		      System.out.println("An error occurred.");
 		      e.printStackTrace();
 		    }*/
-		
-			BufferedReader reader;
-			try {
-				reader = new BufferedReader(new FileReader("testareData.txt"));
-				String line = reader.readLine();
-				while (line != null) {
-					textArea.setText(line);
-					System.out.println(line); // Syso il ia bine la fel si mai sus dar problema e ca nu afiseaza decat ultima linie din text doc in fisier
-					line = reader.readLine();
-					
-				}
-				reader.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		
 		
 		textArea.setForeground(Color.WHITE);
