@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.sql.Array;
+import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -79,6 +80,7 @@ public class Recognizer extends JFrame {
 		frame = new JFrame();
 		getFrame().setLayout(null);
 		getFrame().setBounds(250,250, 800, 480);
+		getFrame().setResizable(false);
 		
 		bkgPanel = new ImagePanel();
 		bkgPanel.setBounds(0,0,800,480);
@@ -212,11 +214,16 @@ public class Recognizer extends JFrame {
 	}
 	
 	private void rec() {
-		SwingWorker worker = new SwingWorker() {
+		new Thread() {
 
 			@Override
-			protected Object doInBackground() throws Exception {
-				connected.connect();
+			public void run() {
+				try {
+					connected.connect();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				try {
 					String SQL = "SELECT * FROM accounts WHERE ID = " + idPerson ;
 					connected.execSQL(SQL); 
@@ -241,11 +248,14 @@ public class Recognizer extends JFrame {
 					
 				}
 				
-				connected.disconnect();
-				return null;
+				try {
+					connected.disconnect();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-		};
-		worker.execute();
+		}.start();
 	}
 	
     public void stopCamera() {
