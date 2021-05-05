@@ -64,7 +64,7 @@ public class ShowData extends JFrame {
 		
 			BufferedReader reader;
 			try {
-				reader = new BufferedReader(new FileReader("D:\\testareData.txt"));
+				reader = new BufferedReader(new FileReader("testareData.txt"));
 				String line = reader.readLine();
 				while (line != null) {
 					textArea.setText(line);

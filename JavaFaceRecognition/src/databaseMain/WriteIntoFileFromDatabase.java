@@ -37,7 +37,7 @@ public class WriteIntoFileFromDatabase {
 				data.add(userName + " " + email + " " + date + " " + address);
 
 			}
-			writeToFile(data, "D:\\testareData.txt");
+			writeToFile(data);
 			rs.close();
 			st.close();
 		} catch (Exception e) {
@@ -45,11 +45,11 @@ public class WriteIntoFileFromDatabase {
 		}
 	}
 
-	private static void writeToFile(java.util.List<String> list, String path) {
+	private static void writeToFile(java.util.List<String> list) {
 		
 		BufferedWriter out = null;
 		try {
-			File file = new File(path);
+			File file = new File("testareData.txt");
 			out = new BufferedWriter(new FileWriter(file, true));
 			new FileWriter(file,false).close();
 			for (String s : list) {
