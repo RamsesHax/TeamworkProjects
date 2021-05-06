@@ -2,6 +2,7 @@ package databaseMain;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.BufferedReader;
@@ -16,7 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -26,8 +30,9 @@ import javax.swing.JTextField;
 public class ShowData extends JFrame {
 	private JFrame frame;
 	private JPanel panel;
-	private JScrollPane scrollBar;
-	
+	JScrollPane scrollBar;
+	JList<String> list;
+	DefaultListModel<String> model;
 	
 	public ShowData() {
 		 
@@ -41,7 +46,7 @@ public class ShowData extends JFrame {
 		panel = new JPanel();
 		panel.setBounds(0, 0, 698, 460);
 		panel.setBackground(Color.red);
-		panel.setLayout(new BorderLayout());
+		panel.setLayout(null);
 		/*
 		textArea.setFont(new Font("Serif", Font.ITALIC, 16));
 		textArea.setLineWrap(true);
@@ -66,9 +71,18 @@ public class ShowData extends JFrame {
 		//textArea.setForeground(Color.WHITE);
 		//textArea.setOpaque(false);
 		
-		scrollBar = new JScrollPane(WriteIntoFileFromDatabase());
-		scrollBar.setSize(new Dimension(20, 390));
-		scrollBar.setLocation(660,0);
+		list = new JList<>();
+		model=new DefaultListModel<>();
+		WriteIntoFileFromDatabase();
+		list.setModel(model);
+		list.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		list.setBorder(BorderFactory.createLoweredBevelBorder());
+		list.setBackground(new Color(28, 34, 38));
+		list.setForeground(new Color(126, 247, 140));
+		list.setOpaque(true);
+		
+		scrollBar = new JScrollPane(list);
+		scrollBar.setBounds(0, 0, 600, 300);
 		
 		scrollBar.getViewport().setOpaque(false);
 		scrollBar.setOpaque(false);
@@ -80,8 +94,6 @@ public class ShowData extends JFrame {
 			
 		
 		getFrame().setVisible(true);
-		
-		
 	}
 
 	public JFrame getFrame() {
@@ -91,11 +103,13 @@ public class ShowData extends JFrame {
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
-	public JTextArea WriteIntoFileFromDatabase() {
+	public void WriteIntoFileFromDatabase() {
 		List data = new ArrayList();
-		
-		ConDatabase connected = new ConDatabase();
-		
+		new Thread() {
+			@Override
+			public void run() {
+				ConDatabase connected = new ConDatabase();
+				
 				try {
 					connected.connect();
 				} catch (SQLException e1) {
@@ -106,7 +120,8 @@ public class ShowData extends JFrame {
 					String SQL = "SELECT * FROM accounts" ;
 					connected.execSQL(SQL); 
 					while(connected.resultSet.next()) {
-						return new JTextArea(connected.resultSet.getString("user")+" "+connected.resultSet.getString("email")+" "+connected.resultSet.getString("date")+" "+connected.resultSet.getString("address")+"\n");
+						model.addElement(connected.resultSet.getString("user")+" "+connected.resultSet.getString("email")+" "+connected.resultSet.getString("date")+" "+connected.resultSet.getString("address")+"\n"); 
+						System.out.println(connected.resultSet.getString("user")+" "+connected.resultSet.getString("email")+" "+connected.resultSet.getString("date")+" "+connected.resultSet.getString("address")+"\n");
 					}
 					
 					
@@ -120,9 +135,9 @@ public class ShowData extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				return null;
 			}
-
+		}.start();
+		}
 
 }
 	
