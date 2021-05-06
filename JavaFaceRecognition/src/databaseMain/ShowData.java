@@ -105,9 +105,6 @@ public class ShowData extends JFrame {
 	}
 	public void WriteIntoFileFromDatabase() {
 		List data = new ArrayList();
-		new Thread() {
-			@Override
-			public void run() {
 				ConDatabase connected = new ConDatabase();
 				
 				try {
@@ -135,8 +132,7 @@ public class ShowData extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
-		}.start();
+
 		}
 
 }
