@@ -82,7 +82,7 @@ public class ShowData extends JFrame {
 		list.setOpaque(true);
 		
 		scrollBar = new JScrollPane(list);
-		scrollBar.setBounds(0, 0, 600, 300);
+		scrollBar.setBounds(0, 0, 650, 420);
 		
 		scrollBar.getViewport().setOpaque(false);
 		scrollBar.setOpaque(false);
@@ -104,6 +104,7 @@ public class ShowData extends JFrame {
 		this.frame = frame;
 	}
 	public void WriteIntoFileFromDatabase() {
+		
 		List data = new ArrayList();
 				ConDatabase connected = new ConDatabase();
 				
@@ -116,9 +117,18 @@ public class ShowData extends JFrame {
 				try {
 					String SQL = "SELECT * FROM accounts" ;
 					connected.execSQL(SQL); 
+					
 					while(connected.resultSet.next()) {
-						model.addElement(connected.resultSet.getString("user")+" "+connected.resultSet.getString("email")+" "+connected.resultSet.getString("date")+" "+connected.resultSet.getString("address")+"\n"); 
-						System.out.println(connected.resultSet.getString("user")+" "+connected.resultSet.getString("email")+" "+connected.resultSet.getString("date")+" "+connected.resultSet.getString("address")+"\n");
+						String u = connected.resultSet.getString("user");
+						String.format("%s ----" , u);
+						String m = connected.resultSet.getString("email");
+						String d = connected.resultSet.getString("date");
+						String a = connected.resultSet.getString("address");
+						
+						model.addElement(String.format("User: %-25s Mail: %-25s Date: %-25s Address: %-25s" , u,m,d,a)); 
+						System.out.println("================================");
+						System.out.println(String.format("User: %-25s Mail: %-25s Date: %-25s Address: %-25s" , u,m,d,a)); 						
+						
 					}
 					
 					
