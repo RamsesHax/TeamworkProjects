@@ -39,20 +39,10 @@ public class WriteIntoFileFromDatabase {
 					String SQL = "SELECT * FROM accounts" ;
 					connected.execSQL(SQL); 
 					while(connected.resultSet.next()) {
-						System.out.print(connected.resultSet.getString(2));
+						System.out.print(connected.resultSet.getString("user")+" "+connected.resultSet.getString("email")+" "+connected.resultSet.getString("date")+" "+connected.resultSet.getString("address")+"\n");
+						
 					}
-					System.out.println("////");
-					while(connected.resultSet.next()) {
-						System.out.print(connected.resultSet.getString(3));
-					}
-					System.out.println("////");
-					while(connected.resultSet.next()) {
-						System.out.print(connected.resultSet.getString(4));
-					}
-					System.out.println("////");
-					while(connected.resultSet.next()) {
-						System.out.print(connected.resultSet.getString(5));
-					}
+					
 					
 				}catch(Exception e) {
 					
