@@ -15,6 +15,8 @@ import java.util.List;
 
 
 
+
+
 public class WriteIntoFileFromDatabase {
 	 public WriteIntoFileFromDatabase() {
 		final String root = "jdbc:mysql://sql11.freesqldatabase.com/sql11406818";
@@ -45,8 +47,9 @@ public class WriteIntoFileFromDatabase {
 					while (line != null) {
 						ShowData.textArea.setText(line);
 						System.out.println(line); // Syso il ia bine la fel si mai sus dar problema e ca nu afiseaza decat ultima linie din text doc in fisier
+						while(line != null) {
 						line = reader.readLine();
-						
+						}
 					}
 					reader.close();
 				} catch (IOException e) {
