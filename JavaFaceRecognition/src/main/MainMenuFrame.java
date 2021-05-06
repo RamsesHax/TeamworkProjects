@@ -14,7 +14,6 @@ import Recognizer.Recognizer;
 import capture.CaptureFrame;
 import databaseMain.RegisterPerson;
 import databaseMain.ShowData;
-import databaseMain.WriteIntoFileFromDatabase;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -41,7 +40,6 @@ public class MainMenuFrame implements ActionListener{
 				try {
 					new MainMenuFrame();
 					MainMenuFrame.frame.setVisible(true);
-					new WriteIntoFileFromDatabase();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -158,7 +156,6 @@ public class MainMenuFrame implements ActionListener{
 			new Thread() {
 				public void run() {
 					try {
-						new WriteIntoFileFromDatabase();
 						ShowData window = new ShowData();
 						window.getFrame().setVisible(true);
 								frame.setEnabled(false);
