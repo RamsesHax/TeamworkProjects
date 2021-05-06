@@ -6,9 +6,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,26 +19,53 @@ import java.util.List;
 
 public class WriteIntoFileFromDatabase {
 	 public WriteIntoFileFromDatabase() {
-		final String root = "jdbc:mysql://sql11.freesqldatabase.com/sql11406818";
-		final String user = "sql11406818";
-		final String pass = "hBANiHPYel";
 		List data = new ArrayList();
+		
+		ConDatabase connected = new ConDatabase();
+		
+		new Thread() {
 
+			@Override
+			public void run() {
+				try {
+					connected.connect();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				try {
+					String SQL = "SELECT * FROM accounts" ;
+					connected.execSQL(SQL); 
+					while(connected.resultSet.next()) {
+						System.out.print(connected.resultSet.getString(2));
+					}
+					System.out.println("////");
+					while(connected.resultSet.next()) {
+						System.out.print(connected.resultSet.getString(3));
+					}
+					System.out.println("////");
+					while(connected.resultSet.next()) {
+						System.out.print(connected.resultSet.getString(4));
+					}
+					System.out.println("////");
+					while(connected.resultSet.next()) {
+						System.out.print(connected.resultSet.getString(5));
+					}
+					
+				}catch(Exception e) {
+					
+				}
+				
+				try {
+					connected.disconnect();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}.start();
 
-		try {
-			
-			Connection con = null;
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection(root, user, pass);
-			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM accounts ");
-
-			while (rs.next()) {
-				String userName = rs.getString("user");
-				String email = rs.getString("email");
-				String date = rs.getString("date");
-				String address = rs.getString("address");
-				writeToFile(data);
+			/*	writeToFile(data);
 				data.add(userName + " " + email + " " + date + " " + address);
 				BufferedReader reader;
 				try {
@@ -54,11 +83,10 @@ public class WriteIntoFileFromDatabase {
 				}
 
 			}
-			rs.close();
-			st.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+		*/
 	}
 
 	private static void writeToFile(java.util.List<String> list) {
