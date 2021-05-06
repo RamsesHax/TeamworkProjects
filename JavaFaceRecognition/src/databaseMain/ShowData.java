@@ -39,7 +39,7 @@ public class ShowData extends JFrame {
 		
 		setFrame(new JFrame());
 		getFrame().setBounds(100, 100, 698, 430);
-		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getFrame().setResizable(false);
 		getFrame().setLayout(new BorderLayout());
 		
