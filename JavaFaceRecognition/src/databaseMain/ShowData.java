@@ -119,6 +119,7 @@ public class ShowData extends JFrame {
 					connected.execSQL(SQL); 
 					
 					while(connected.resultSet.next()) {
+
 						String u = connected.resultSet.getString("user");
 						String m = connected.resultSet.getString("email");
 						String d = connected.resultSet.getString("date");
@@ -128,6 +129,10 @@ public class ShowData extends JFrame {
 						System.out.println("================================");
 						System.out.println(element); 						
 						
+
+						model.addElement(connected.resultSet.getString("user")); 
+						System.out.println(connected.resultSet.getString("user")+" "+connected.resultSet.getString("email")+" "+connected.resultSet.getString("date")+" "+connected.resultSet.getString("address")+"\n");
+
 					}
 					
 					
