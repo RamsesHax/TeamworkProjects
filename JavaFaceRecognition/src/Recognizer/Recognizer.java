@@ -66,7 +66,7 @@ public class Recognizer extends JFrame {
 		CascadeClassifier cascade = new CascadeClassifier("D:\\SnapshotsTaken\\haarcascade_frontalface_alt.xml");
 		BytePointer mem = new BytePointer();
 		RectVector detectedFaces = new RectVector();
-		LBPHFaceRecognizer recognizer = LBPHFaceRecognizer.create();;
+		LBPHFaceRecognizer recognizer = LBPHFaceRecognizer.create();
 		
 		//Vars
 		String root , usernamePerson, mailPerson, dateOfBirthPerson, addressPerson;
@@ -158,7 +158,7 @@ public class Recognizer extends JFrame {
 							//opencv_core.flip(cameraImage, cameraImage, +1);
 							
 							RectVector detectedFace = new RectVector();
-							cascade.detectMultiScale(imageGray, detectedFace, 1.1, 2, 0, new org.bytedeco.opencv.opencv_core.Size(150,150), new org.bytedeco.opencv.opencv_core.Size(500,500));
+							cascade.detectMultiScale(imageGray, detectedFace, 1.1, 5, 0, new org.bytedeco.opencv.opencv_core.Size(150,150), new org.bytedeco.opencv.opencv_core.Size(500,500));
 							
 							for(int i = 0 ; i< detectedFace.size(); i++) {
 								Rect faceData = detectedFace.get(i);
