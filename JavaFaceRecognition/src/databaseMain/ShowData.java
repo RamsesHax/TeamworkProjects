@@ -38,15 +38,15 @@ public class ShowData extends JFrame {
 		 
 		
 		setFrame(new JFrame());
-		getFrame().setBounds(100, 100, 698, 430);
+		getFrame().setBounds(100, 100, 1500, 430);
 		getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getFrame().setResizable(false);
 		getFrame().setLayout(new BorderLayout());
 		
 		panel = new JPanel();
-		panel.setBounds(0, 0, 698, 460);
+		panel.setBounds(0, 0, 1500, 460);
 		panel.setBackground(Color.red);
-		panel.setLayout(null);
+		panel.setLayout(new BorderLayout());
 		/*
 		textArea.setFont(new Font("Serif", Font.ITALIC, 16));
 		textArea.setLineWrap(true);
@@ -120,14 +120,13 @@ public class ShowData extends JFrame {
 					
 					while(connected.resultSet.next()) {
 						String u = connected.resultSet.getString("user");
-						String.format("%s ----" , u);
 						String m = connected.resultSet.getString("email");
 						String d = connected.resultSet.getString("date");
 						String a = connected.resultSet.getString("address");
-						
-						model.addElement(String.format("User: %-25s Mail: %-25s Date: %-25s Address: %-25s" , u,m,d,a)); 
+						String element = String.format("User: %-80s Mail: %-80s Date: %-80s Address: %-80s" , u,m,d,a);
+						model.addElement(element); 
 						System.out.println("================================");
-						System.out.println(String.format("User: %-25s Mail: %-25s Date: %-25s Address: %-25s" , u,m,d,a)); 						
+						System.out.println(element); 						
 						
 					}
 					
