@@ -1,6 +1,10 @@
 # TeamworkProjects
 ## Face recognition
-### How it works:
+### Demo video:
+
+[![DEMO](https://user-images.githubusercontent.com/65785991/118040975-eab45180-b37a-11eb-9c90-0b423cf9057e.png)](https://www.youtube.com/watch?v=S_8F85dc7hI)
+
+#### How it works:
 ***The first thing appearing after running the app will be :***  
 
 ![Main menu](https://user-images.githubusercontent.com/44818281/117890110-3b657500-b2bd-11eb-8847-218471e90bc2.png)  
