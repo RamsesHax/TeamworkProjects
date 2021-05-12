@@ -2,7 +2,7 @@
 ## Face recognition
 ### Demo video:
 
-[![DEMO](https://user-images.githubusercontent.com/65785991/118040975-eab45180-b37a-11eb-9c90-0b423cf9057e.png)](https://www.youtube.com/watch?v=S_8F85dc7hI)
+[![DEMO](https://user-images.githubusercontent.com/65785991/118040975-eab45180-b37a-11eb-9c90-0b423cf9057e.png)](https://www.youtube.com/watch?v=4VU7gQC79DI&feature=youtu.be)
 
 #### How it works:
 ***The first thing appearing after running the app will be :***  
